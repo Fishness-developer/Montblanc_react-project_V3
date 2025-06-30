@@ -1,0 +1,235 @@
+:root {
+  --color-white:#FFFFFF;
+  --color-green:#46BB22;
+  --color-green-hover:#4ADC1C;
+  --color-dark:#2C2C2C;
+  --color-beige:#FAE390;
+  --color-black:#000000;
+  --border-radius:50px;
+  --border:2px solid var(--color-white);
+  --font-family-roboto:"Roboto", sans-serif;
+  --section-padding-y:50px;
+}
+
+.header {
+  width: 100%;
+  height: 120px;
+  padding: 0 30px;
+  margin: 0;
+  background: var(--color-green);
+  display: flex;
+  box-sizing: border-box;
+}
+.header__inner {
+  width: 100%;
+  display: flex;
+  justify-content: right;
+  align-items: center;
+  column-gap: 50px;
+}
+.header__menu.services {
+  flex-grow: 1;
+}
+.header__menu.services ul {
+  display: flex;
+  justify-content: left;
+  gap: 30px;
+  margin: 0 50px;
+}
+.header__menu.services ul li {
+  font-size: 14px;
+  font-weight: 300;
+  color: var(--color-white);
+  line-height: 21px;
+  text-transform: uppercase;
+  text-decoration: none;
+}
+.header__menu.services ul li:hover {
+  cursor: pointer;
+}
+.header__menu.services li::after {
+  content: "";
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 0;
+  height: 1px;
+  background: var(--color-white);
+}
+.header__menu.services li:hover::after {
+  width: 100%;
+  transition: 0.5s;
+}
+.header__cart {
+  position: relative;
+  z-index: 100;
+}
+.header__drop-cart-container {
+  position: relative;
+  display: none;
+  z-index: 10;
+}
+.header__drop-cart {
+  width: auto;
+  height: auto;
+  padding: 0px;
+  margin: -55px 0 0 0;
+  background: var(--color-dark);
+  position: absolute;
+  right: -10px;
+  min-width: 450px;
+}
+.header__drop-cart p {
+  font-size: 14px;
+  font-weight: 300;
+  color: var(--color-black);
+  line-height: 21px;
+}
+.header__drop-cart p.cart-amount {
+  font-size: 20px;
+  font-weight: 600;
+  color: var(--color-beige);
+  line-height: 30px;
+}
+.header__drop-cart .cart-item-container {
+  width: 100%;
+  height: auto;
+  padding: 0;
+  margin: 0;
+  background: var(--color-white);
+  box-sizing: border-box;
+}
+.header__drop-cart .drop-cart-inner {
+  padding: 10px 20px;
+}
+.header__drop-cart .drop-cart-inner p.cart_header {
+  color: var(--color-white);
+}
+.header__drop-cart .cart-order-product {
+  display: grid;
+  grid-template-columns: 1fr 3fr 1fr 1fr 1fr;
+  grid-template-rows: 1fr;
+  align-items: center;
+  justify-items: center;
+  width: auto;
+  align-self: center;
+  padding: 10px;
+}
+.header__drop-cart .cart-order-product img {
+  width: 30px;
+  height: auto;
+}
+.header__drop-cart .cart-order-product .cart-close {
+  cursor: pointer;
+}
+.header__drop-cart-button {
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--color-white);
+  line-height: 21px;
+  font-family: var(--font-family-roboto);
+  background: var(--color-green);
+  align-items: center;
+  white-space: nowrap;
+  text-align: center;
+  text-transform: uppercase;
+  border: 0;
+  width: 100%;
+  justify-content: center;
+  padding: 10px 0;
+  text-decoration: none;
+}
+.header__button {
+  font-family: var(--font-family-roboto);
+  background: none;
+  border: 1px solid #fff;
+  display: flex;
+  align-items: center;
+  white-space: nowrap;
+}
+.header__button p, .header__button-drop p {
+  margin-top: 3px;
+  margin-left: 10px;
+}
+.header__button-drop {
+  background-color: var(--color-green);
+  border-radius: 40px;
+  white-space: nowrap;
+}
+.header .amount-items {
+  width: auto;
+  height: auto;
+  padding: 3px;
+  margin: 0 auto;
+  background: var(--color-green);
+  position: absolute;
+  border-radius: 20px;
+  top: 55px;
+  right: 132px;
+  font-size: 11px;
+  line-height: 10px;
+}
+.header .amount-items-null {
+  width: auto;
+  height: auto;
+  padding: 3px;
+  margin: 0 auto;
+  background: var(--color-green);
+  position: absolute;
+  border-radius: 20px;
+  font-size: 11px;
+  line-height: 10px;
+  margin-top: 18px;
+}
+.header__input {
+  font-family: var(--font-family-roboto);
+  font-size: 14px;
+  font-weight: 300;
+  color: var(--color-white);
+  line-height: 21px;
+  background: #3fa81f url("../images/svg/search.svg") 20px 50% no-repeat;
+  border: 1px solid rgba(0, 0, 0, 0.2);
+  width: 100%;
+  max-width: 500px;
+  padding-left: 50px;
+}
+.header__contact.phone {
+  white-space: nowrap;
+  font-size: 14px;
+  font-weight: 300;
+  color: var(--color-white);
+  line-height: 21px;
+  padding-left: 30px;
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+.header__contact.time {
+  font-size: 14px;
+  font-weight: 300;
+  color: var(--color-white);
+  line-height: 21px;
+  white-space: nowrap;
+  padding-left: 30px;
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+.header__contact.phone .tel, .header__contact.time .tel {
+  font-size: 24px;
+  font-weight: 500;
+  color: var(--color-white);
+  line-height: 36px;
+}
+.header__burger {
+  width: 24px;
+  height: 16px;
+  border: 0;
+}
+.header .cart {
+  background-repeat: no-repeat;
+  background-position: 20px 50%;
+}
+
+/*# sourceMappingURL=header.css.map */
