@@ -20,7 +20,7 @@
 .section_catalog__container_product {
   width: 1170px;
   display: flex;
-  justify-content: space-between;
+  justify-content: flex-start;
   gap: 30px;
   flex-direction: column;
 }
@@ -32,7 +32,7 @@
 }
 .section_catalog .container_top {
   display: flex;
-  justify-content: space-between;
+  justify-content: flex-start;
   gap: 30px;
 }
 .section_catalog .container_top .foto {

@@ -404,6 +404,14 @@ textarea {
   gap: 30px;
   margin: 0 50px;
 }
+.header__menu.services ul a {
+  font-size: 14px;
+  font-weight: 300;
+  color: var(--color-white);
+  line-height: 21px;
+  text-transform: none;
+  text-decoration: none;
+}
 .header__menu.services ul li {
   font-size: 14px;
   font-weight: 300;
@@ -412,10 +420,10 @@ textarea {
   text-transform: uppercase;
   text-decoration: none;
 }
-.header__menu.services ul li:hover {
+.header__menu.services ul li:hover, .header__menu.services ul a:hover {
   cursor: pointer;
 }
-.header__menu.services li::after {
+.header__menu.services li::after, .header__menu.services a::after {
   content: "";
   position: relative;
   display: flex;
@@ -425,7 +433,7 @@ textarea {
   height: 1px;
   background: var(--color-white);
 }
-.header__menu.services li:hover::after {
+.header__menu.services li:hover::after, .header__menu.services a:hover::after {
   width: 100%;
   transition: 0.5s;
 }
@@ -772,7 +780,7 @@ textarea {
   height: auto;
   padding: 50px 0;
   margin: 0 auto;
-  background: url("../../images/bg_fon1.jpg") repeat;
+  background: url("../assets/images/bg_fon1.jpg") repeat;
 }
 .section_01 h2 {
   color: var(--color-green);
@@ -1185,7 +1193,7 @@ textarea {
   height: auto;
   padding: 50px 0 50px 0;
   margin: 0 auto;
-  background: url("../../images/bg_fon_2.png") 0 100% no-repeat;
+  background: url("../assets/images/bg_fon_2.png") 0 100% no-repeat;
   font-size: 14px;
   font-weight: 300;
   color: var(--color-dark);
@@ -1289,7 +1297,7 @@ textarea {
 .section_catalog__container {
   width: 1170px;
   display: flex;
-  justify-content: space-between;
+  justify-content: flex-start;
   gap: 30px;
 }
 .section_catalog__container .left_sidebar {
@@ -1390,7 +1398,7 @@ textarea {
 .section_catalog__container_product {
   width: 1170px;
   display: flex;
-  justify-content: space-between;
+  justify-content: flex-start;
   gap: 30px;
   flex-direction: column;
 }
@@ -1402,7 +1410,7 @@ textarea {
 }
 .section_catalog .container_top {
   display: flex;
-  justify-content: space-between;
+  justify-content: flex-start;
   gap: 30px;
 }
 .section_catalog .container_top .foto {
@@ -1547,6 +1555,13 @@ body {
   font-weight: 300;
   color: var(--color-dark);
   line-height: 2.1px;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+#root {
+  width: 100%;
   height: 100vh;
 }
 

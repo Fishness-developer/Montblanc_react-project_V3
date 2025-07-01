@@ -1,36 +1,41 @@
-import React, {useEffect} from 'react';
-import Header from "./Header/Header.jsx";
-import NavBar from "./NavBar/NavBar.jsx";
-import {Outlet} from "react-router-dom";
-import CartContainer from "../CartContainer/CartContainer.jsx";
-import {CartContext} from '../../context/CartContext/CartContext.jsx'; // Импортируем контекст
-import {useContext} from 'react';
-import Advertising from "./Advertising/Advertising.jsx";
-import Information from "./Information/Information.jsx";
-import Support from "./Support/Support.jsx";
-import Footer from "./Footer/Footer.jsx";
-import SliderVanila from "./SliderVanilla/SliderVanila.jsx";
+// src/components/Layout/Layout.jsx
+import React, { useEffect } from 'react';
+import { useCart } from '../../context/CartContext/CartContext';
+import { useLanguage } from '../../context/LanguageContext/LanguageContext';
+import Header from './Header/Header.jsx';
+import NavBar from './NavBar/NavBar.jsx';
+import { Outlet } from 'react-router-dom';
+import CartContainer from '../CartContainer/CartContainer.jsx';
+import Advertising from './Advertising/Advertising.jsx';
+import Information from './Information/Information.jsx';
+import Support from './Support/Support.jsx';
+import Footer from './Footer/Footer.jsx';
 
 const Layout = () => {
-	const {IsCart, setIsCart} = useContext(CartContext); // Используем контекст
+	const { isCart, setIsCart } = useCart(); // Используем хук useCart
+	const { language, changeLanguage, translate } = useLanguage(); // Получаем функции для локализации
 
-	console.log('CartContext:', {IsCart, setIsCart});
+	// Логи для отладки (можно удалить в продакшене)
+	console.log('CartContext:', { isCart, setIsCart });
+	console.log('Language:', { language });
 
 	return (
 		<div>
-			<Header
-				IsCart={IsCart}
-				setIsCart={setIsCart}
-			/>
+			{/* Переключатель языка */}
+			<div className="language-switcher">
+				<button onClick={() => changeLanguage('en')}>{translate('English')}</button>
+				<button onClick={() => changeLanguage('he')}>{translate('Hebrew')}</button>
+			</div>
+
+			<Header isCart={isCart} setIsCart={setIsCart} />
 			<NavBar />
-			{/*<SliderVanila/>*/}
 			<main>
-				{IsCart ? <CartContainer /> : <Outlet />}
+				{isCart ? <CartContainer /> : <Outlet />}
 			</main>
-			<Advertising/>
-			<Information/>
-			<Support/>
-			<Footer/>
+			<Advertising />
+			<Information />
+			<Support />
+			<Footer />
 		</div>
 	);
 };

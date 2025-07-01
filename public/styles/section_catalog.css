@@ -29,7 +29,7 @@
 .section_catalog__container {
   width: 1170px;
   display: flex;
-  justify-content: space-between;
+  justify-content: flex-start;
   gap: 30px;
 }
 .section_catalog__container .left_sidebar {

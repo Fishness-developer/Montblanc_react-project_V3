@@ -10,6 +10,7 @@ import SignIn from "./pages/SignIn.jsx";
 import SignUp from "./pages/SignUp.jsx";
 import Contacts from "./pages/Contacts.jsx";
 import CartProvider from "./context/CartContext/CartContext.jsx";
+import DetailProductPage from "./pages/DetailProductPage.jsx";
 
 
 
@@ -31,6 +32,11 @@ const App = () => {
 						 path="/catalog"
 						 element={<Catalog />}
 					 />
+
+					 <Route
+						 path="/:product/:id"
+						 element={<DetailProductPage />}
+					 />
 					 <Route
 						 path="/special-offers"
 						 element={<SpecialOffers />}
@@ -51,6 +57,7 @@ const App = () => {
 						 path="/sign-up"
 						 element={<SignUp />}
 					 />
+
 				 </Route>
 			 </Routes>
 		 </BrowserRouter>

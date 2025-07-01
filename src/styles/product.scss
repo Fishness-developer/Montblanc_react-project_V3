@@ -8,7 +8,7 @@
 	&__container_product {
 		width: 1170px;
 		display: flex;
-		justify-content: space-between;
+		justify-content: flex-start;
 		gap: 30px;
 		flex-direction: column;
 		p{
@@ -18,7 +18,7 @@
 
 	.container_top {
 		display: flex;
-		justify-content: space-between;
+		justify-content: flex-start;
 		gap: 30px;
 		.foto{
 			min-width: 250px;

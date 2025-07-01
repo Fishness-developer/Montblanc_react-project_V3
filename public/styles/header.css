@@ -36,6 +36,14 @@
   gap: 30px;
   margin: 0 50px;
 }
+.header__menu.services ul a {
+  font-size: 14px;
+  font-weight: 300;
+  color: var(--color-white);
+  line-height: 21px;
+  text-transform: none;
+  text-decoration: none;
+}
 .header__menu.services ul li {
   font-size: 14px;
   font-weight: 300;
@@ -44,10 +52,10 @@
   text-transform: uppercase;
   text-decoration: none;
 }
-.header__menu.services ul li:hover {
+.header__menu.services ul li:hover, .header__menu.services ul a:hover {
   cursor: pointer;
 }
-.header__menu.services li::after {
+.header__menu.services li::after, .header__menu.services a::after {
   content: "";
   position: relative;
   display: flex;
@@ -57,7 +65,7 @@
   height: 1px;
   background: var(--color-white);
 }
-.header__menu.services li:hover::after {
+.header__menu.services li:hover::after, .header__menu.services a:hover::after {
   width: 100%;
   transition: 0.5s;
 }

@@ -1,16 +1,28 @@
-import React from 'react';
-import { createContext, useState } from 'react';
+import React, { createContext, useContext, useState, useEffect } from 'react';
+import productsData from '../../data/package_products.json'; // Импортируем JSON
 
-export const CartContext = createContext();
+const CartContext = createContext();
 
 const CartProvider = ({ children }) => {
-	const [IsCart, setIsCart] = useState(false);
+	// Используем данные из JSON как начальное состояние
+	const [products, setProducts] = useState(productsData);
+	const [cart, setCart] = useState([]);
+
+	const addToCart = (product) => {
+		setCart([...cart, product]);
+	};
+
+	// Выводим содержимое корзины в консоль при каждом её изменении
+	useEffect(() => {
+		console.log('Текущая корзина:', cart);
+	}, [cart]);
 
 	return (
-		<CartContext.Provider value={{ IsCart, setIsCart }}>
+		<CartContext.Provider value={{ products, cart, addToCart }}>
 			{children}
 		</CartContext.Provider>
 	);
 };
 
+export const useCart = () => useContext(CartContext);
 export default CartProvider;
