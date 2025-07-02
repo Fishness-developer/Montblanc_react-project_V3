@@ -1,6 +1,6 @@
-import {BrowserRouter, Route, Routes} from "react-router-dom";
+import { BrowserRouter, Route, Routes } from "react-router-dom";
 import "./styles/styles.scss";
-import {LanguageProvider} from "./context/LanguageContext/LanguageContext.jsx";
+import { LanguageProvider } from "./context/LanguageContext/LanguageContext.jsx";
 import Layout from "./components/Layout/Layout.jsx";
 import Home from "./pages/Home.jsx";
 import Catalog from "./pages/Catalog.jsx";
@@ -11,61 +11,30 @@ import SignUp from "./pages/SignUp.jsx";
 import Contacts from "./pages/Contacts.jsx";
 import CartProvider from "./context/CartContext/CartContext.jsx";
 import DetailProductPage from "./pages/DetailProductPage.jsx";
-
-
+import Category from "./pages/Category.jsx";
 
 const App = () => {
 	return (
- <CartProvider>
-	 <LanguageProvider>
-		 <BrowserRouter>
-			 <Routes>
-				 <Route
-					 path="/"
-					 element={<Layout />}
-				 >
-					 <Route
-						 index
-						 element={<Home />}
-					 />
-					 <Route
-						 path="/catalog"
-						 element={<Catalog />}
-					 />
+		<CartProvider>
+			<LanguageProvider>
+				<BrowserRouter>
+					<Routes>
+						<Route path="/" element={<Layout />}>
+							<Route index element={<Home />} />
+							<Route path="/catalog" element={<Catalog />} />
+							<Route path="/catalog/:category" element={<Category />} />
+							<Route path="/catalog/:category/:id" element={<DetailProductPage />} />
+							<Route path="/special-offers" element={<SpecialOffers />} />
+							<Route path="/delivery" element={<Delivery />} />
+							<Route path="/contacts" element={<Contacts />} />
+							<Route path="/sign-in" element={<SignIn />} />
+							<Route path="/sign-up" element={<SignUp />} />
+						</Route>
+					</Routes>
+				</BrowserRouter>
+			</LanguageProvider>
+		</CartProvider>
+	);
+};
 
-					 <Route
-						 path="/:product/:id"
-						 element={<DetailProductPage />}
-					 />
-					 <Route
-						 path="/special-offers"
-						 element={<SpecialOffers />}
-					 />
-					 <Route
-						 path="/delivery"
-						 element={<Delivery />}
-					 />
-					 <Route
-						 path="/contacts"
-						 element={<Contacts />}
-					 />
-					 <Route
-						 path="/sign-in"
-						 element={<SignIn />}
-					 />
-					 <Route
-						 path="/sign-up"
-						 element={<SignUp />}
-					 />
-
-				 </Route>
-			 </Routes>
-		 </BrowserRouter>
-	 </LanguageProvider>
- </CartProvider>
-
-
-			)};
-
-
-			export default App;
+export default App;

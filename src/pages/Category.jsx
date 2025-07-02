@@ -1,9 +1,11 @@
 import React from 'react';
+import LeftSidebar from "../components/LeftSidebar/LeftSidebar.jsx";
 import CatalogContainer
 	from "../components/CatalogContainer/CatalogContainer.jsx";
-import LeftSidebar from "../components/LeftSidebar/LeftSidebar.jsx";
+import CategoryContainer
+	from "../components/CategoryContainer/CategoryContainer.jsx";
 
-const Catalog = () => {
+const Category = () => {
 	return (
 		<section className="section_catalog">
 			<div className="section_catalog__container">
@@ -13,7 +15,7 @@ const Catalog = () => {
 				</div>
 				<div className="right_sidebar">
 					<ul className="section_01__promotions">
-						<CatalogContainer />
+						<CategoryContainer />
 					</ul>
 				</div>
 			</div>
@@ -23,4 +25,4 @@ const Catalog = () => {
 	);
 };
 
-export default Catalog;
+export default Category;

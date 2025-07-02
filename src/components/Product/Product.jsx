@@ -33,13 +33,12 @@ const Product = ({product}) => {
 			<p className="item-description">{product.title}</p>
 
 			<button
-				// to={`/catalog/${product.category.toLowerCase().replace(/\s+/g, '-')}/${product.id}`}
 				className="section_01__promotions-item-button button"
 				data-cart
-				onClick={() => navigate(`/${formatTitleForUrl(product.title)}/${product.id}`)}
+				onClick={() => navigate(`/catalog/${product.category.toLowerCase().replace(/\s+/g, '-')}/${product.id}`)}
 			>
- 					view product
- 			</button>
+				view product
+			</button>
 
 		</li>
 	);

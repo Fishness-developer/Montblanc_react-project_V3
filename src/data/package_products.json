@@ -3,11 +3,11 @@
 		"id": 1,
 		"image": "/images/products/Costa_dOro.png",
 		"price": 45.00,
-		"title": "tileOliveOil",
-		"description": "descriptionOliveOil",
+		"title": "Olive Oil",
+		"description": "Olive Oil",
 		"number": 0,
 		"special offers": true,
-		"category": "categoryOliveOil"
+		"category": "Olive Oil"
 	},
 
 	{

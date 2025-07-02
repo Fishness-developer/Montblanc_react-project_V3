@@ -17,12 +17,16 @@
 	}
 
 	&__promotions {
-		@include block-set(100%, auto, 0, 30px auto, none);
+		@include block-set(100%, auto, 0, auto, none);
 		display: flex;
 		justify-content: center;
 		align-items: stretch;
 		gap: 30px;
 		flex-wrap: wrap;
+		h2{
+			margin-bottom: 30px;
+			line-height: 5.4rem!important;
+		}
 	}
 
 	&__promotions-item {
