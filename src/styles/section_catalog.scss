@@ -28,6 +28,10 @@
 				gap: 10px;
 				margin: 20px 0;
 
+				.selected .catalog__item {
+					color: var(--color-green);
+				}
+
 				.catalog__item, .catalog__subitem {
 					color: var(--color-dark);
 					text-decoration: none;
@@ -39,6 +43,7 @@
 					cursor: pointer;
 					transition: color 0.3s ease;
 				}
+
 
 				.catalog__item:hover, .catalog__subitem:hover {
 					color: var(--color-green);

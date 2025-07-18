@@ -12,12 +12,12 @@ import Support from './Support/Support.jsx';
 import Footer from './Footer/Footer.jsx';
 
 const Layout = () => {
-	const { isCart, setIsCart } = useCart(); // Используем хук useCart
+	// const { isCart, setIsCart } = useCart(); // Используем хук useCart
 	const { language, changeLanguage, translate } = useLanguage(); // Получаем функции для локализации
 
 	// Логи для отладки (можно удалить в продакшене)
-	console.log('CartContext:', { isCart, setIsCart });
-	console.log('Language:', { language });
+
+
 
 	return (
 		<div>
@@ -27,10 +27,11 @@ const Layout = () => {
 				<button onClick={() => changeLanguage('he')}>{translate('Hebrew')}</button>
 			</div>
 
-			<Header isCart={isCart} setIsCart={setIsCart} />
+			<Header />
 			<NavBar />
 			<main>
-				{isCart ? <CartContainer /> : <Outlet />}
+				<Outlet />
+				{/*{isCart ? <CartContainer /> : <Outlet />}*/}
 			</main>
 			<Advertising />
 			<Information />

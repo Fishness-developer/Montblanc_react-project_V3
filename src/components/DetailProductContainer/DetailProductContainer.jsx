@@ -1,14 +1,16 @@
-import React from 'react';
-import { useParams } from 'react-router-dom';
-import { useCart } from '../../context/CartContext/CartContext';
+import React, {useState} from 'react';
+import {useParams} from 'react-router-dom';
+import {useCart} from '../../context/CartContext/CartContext';
 import Amount from "../Amount/Amount.jsx";
+import useCalcAmount from "../../hooks/useCalcAmount.jsx";
 
-const DetailProductContainer = () => {
-	const { id } = useParams(); // Извлекаем id из URL
-	const { products, addToCart } = useCart(); // Получаем продукты и функцию addToCart из контекста
-
+const DetailProductContainer = ({product}) => {
+	const {id} = useParams(); // Извлекаем id из URL
+	const {addToCart} = useCart(); // Получаем продукты и функцию addToCart из контекста
+	const [productsAmount, setProductsAmount] = useState(1);
+	const {handleDecrease,handleIncrease, counter} = useCalcAmount();
 	// Находим продукт по id
-	const product = products.find((p) => p.id === parseInt(id));
+	// const product = products.find((p) => p.id === parseInt(id));
 
 	// Если продукт не найден, отображаем сообщение
 	if (!product) {
@@ -22,7 +24,8 @@ const DetailProductContainer = () => {
 
 	// Обработчик для добавления товара в корзину
 	const handleAddToCart = () => {
-		addToCart(product);
+		addToCart(counter,product);
+
 	};
 
 	return (
@@ -43,7 +46,7 @@ const DetailProductContainer = () => {
 				<div className="container_bottom">
 					<div className="amount">
 						<h3>Amount:</h3>
-						<Amount />
+						<Amount handleDecrease={handleDecrease} handleIncrease={handleIncrease} counter={counter}  />
 					</div>
 					<div className="price">
 						<h3>Price:</h3>

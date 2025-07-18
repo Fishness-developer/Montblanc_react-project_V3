@@ -1,11 +1,13 @@
 import React from 'react';
-import { useParams, Link } from 'react-router-dom';
-import { useCart } from '../../context/CartContext/CartContext.jsx';
+import {useParams, Link} from 'react-router-dom';
+
 import Product from "../Product/Product.jsx";
 
+
 const CategoryContainer = () => {
-	const { category } = useParams(); // Извлекаем категорию из URL
-	const { products, addToCart } = useCart(); // Получаем товары и функцию addToCart из контекста
+	const products = []
+	const {category} = useParams(); // Извлекаем категорию из URL
+
 
 	// Фильтруем товары по категории (сравнение без учета регистра)
 	const filteredProducts = products.filter(

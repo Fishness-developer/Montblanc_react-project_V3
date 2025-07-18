@@ -1,24 +1,33 @@
 import React, { createContext, useContext, useState, useEffect } from 'react';
-import productsData from '../../data/package_products.json'; // Импортируем JSON
+import productsData from '../../data/package_products.json';
+import product from "../../components/Product/Product.jsx"; // Импортируем JSON
 
 const CartContext = createContext();
 
 const CartProvider = ({ children }) => {
 	// Используем данные из JSON как начальное состояние
-	const [products, setProducts] = useState(productsData);
-	const [cart, setCart] = useState([]);
 
-	const addToCart = (product) => {
-		setCart([...cart, product]);
-	};
+	const [cartItems, setCartItems] = useState([]);
+
+	const addToCart = (counter, product) =>
+		setCartItems((prevList) => {
+			const newList = prevList.filter((p) => p.id !== product.id);
+			return [...newList, { ...product, number: counter }];
+		});
+
+	const deleteFromCart = (productId) =>{
+		setCartItems((prevList) =>
+			prevList.filter((p) => p.id !== productId)
+		);
+	}
 
 	// Выводим содержимое корзины в консоль при каждом её изменении
 	useEffect(() => {
-		console.log('Текущая корзина:', cart);
-	}, [cart]);
+		console.log('Текущая корзина:', cartItems);
+	}, [cartItems]);
 
 	return (
-		<CartContext.Provider value={{ products, cart, addToCart }}>
+		<CartContext.Provider value={{addToCart, cartItems,  deleteFromCart }}>
 			{children}
 		</CartContext.Provider>
 	);

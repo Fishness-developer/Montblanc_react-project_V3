@@ -1,17 +1,10 @@
 import React, { useState } from 'react';
+import useCalcAmount from "../../hooks/useCalcAmount.jsx";
 
-const Amount = () => {
-	const [counter, setCounter] = useState(1);
 
-	const handleDecrease = () => {
-		if (counter > 1) {
-			setCounter(prev => prev - 1);
-		}
-	};
 
-	const handleIncrease = () => {
-		setCounter(prev => prev + 1);
-	};
+const Amount = ({handleDecrease,handleIncrease, counter}) => {
+
 
 	return (
 		<div>
