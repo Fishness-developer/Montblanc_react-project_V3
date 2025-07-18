@@ -1,5 +1,10 @@
 import React from 'react';
-
+import Close from '../../icons/Close/Close.jsx';
+const closeStyle = {
+	width: "20px",
+	height: "20px",
+	fill: "#ffffff",
+}
 const ModalCart = ({ cartItems, addToCart, deleteFromCart }) => {
 	const total = cartItems.reduce((sum, item) => sum + item.price * (item.quantity || 1), 0);
 
@@ -17,10 +22,21 @@ const ModalCart = ({ cartItems, addToCart, deleteFromCart }) => {
 				) : (
 					cartItems.map((product) => (
 						<div className="cart-item-container">
-							<div class="cart-order-product" key={product.id}>
+							<div className="cart-order-product" key={product.id}>
+								<div className="cart-image"><img
+									src={product.image}
+									width="137"
+									height="156"
+									alt={product.title}
+								/></div>
 								<p>
 									{product.title}</p>
-									<button onClick={() => deleteFromCart(product.id)}>X</button>
+								<p><span data-price="">{product.price.toFixed(2)}</span> ₪</p>
+								<p>{product.number} pcs</p>
+								<button
+									className="cart-close"
+									onClick={() => deleteFromCart(product.id)}
+								><Close {...closeStyle} /></button>
 
 							</div>
 
