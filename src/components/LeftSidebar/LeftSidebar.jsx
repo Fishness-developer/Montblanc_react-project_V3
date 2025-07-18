@@ -1,30 +1,32 @@
 // LeftSidebar.jsx
-import React, {useEffect, useState} from 'react';
-import {Link} from 'react-router-dom';
-import allCatalogItems from '../../data/package_sidebar_list.json';
-import axios from "axios";
-import api from "../../api/api.js";
+import React from 'react';
+import {Link, useParams} from 'react-router-dom';
 import useGetCategories from "../CatalogContainer/hooks/useGetCategories.jsx";
 
-const LeftSidebar = ({setCategoryId, categoryId}) => {
-	const [openIndex, setOpenIndex] = useState(null);
-	const handleItemClick = (event, id) => {
-		setCategoryId(id)
-	};
+const LeftSidebar = () => {
+	const {category} = useParams();
 	const {categoriesList} = useGetCategories()
+	const defaultCategoryId = 1;
 	console.log("categoriesList: ",categoriesList)
 	return (
 		<ul className="catalog__list">
-			{categoriesList.map((item, index) => (
-				<li
-					key={item.id}
-					data-catalog-list
-					className={`${openIndex === index ? 'open' : ''} ${item.id === categoryId ? 'selected' : ''}`}
-					onClick={(event) => handleItemClick(event, item.id)}
-				>
-					<span className="catalog__item">{item.name}</span>  {/* Изменено на item.name */}
-				</li>
-			))}
+			{categoriesList.map((item, index) => {
+				const cat = item.name.toLowerCase().replace(/\s+/g, '-');
+				const isSelected = category
+					? cat === category
+					: item.id === defaultCategoryId;
+				return (
+					<li
+						key={item.id}
+						data-catalog-list
+						className={`${isSelected ? 'selected' : ''}`}
+					>
+						<Link to={`/catalog/${cat}`}>
+							<span className="catalog__item">{item.name}</span>
+						</Link>
+					</li>
+				);
+			})}
 		</ul>
 	);
 };

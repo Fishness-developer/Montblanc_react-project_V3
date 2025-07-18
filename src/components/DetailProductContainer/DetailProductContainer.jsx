@@ -1,18 +1,48 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import {useParams} from 'react-router-dom';
 import {useCart} from '../../context/CartContext/CartContext';
 import Amount from "../Amount/Amount.jsx";
 import useCalcAmount from "../../hooks/useCalcAmount.jsx";
+import api from "../../api/api.js";
+import useGetCategories from "../CatalogContainer/hooks/useGetCategories.jsx";
 
-const DetailProductContainer = ({product}) => {
-	const {id} = useParams(); // Извлекаем id из URL
-	const {addToCart} = useCart(); // Получаем продукты и функцию addToCart из контекста
-	const [productsAmount, setProductsAmount] = useState(1);
+const DetailProductContainer = () => {
+	const {category, productId} = useParams();
+	const {addToCart} = useCart();
 	const {handleDecrease,handleIncrease, counter} = useCalcAmount();
-	// Находим продукт по id
-	// const product = products.find((p) => p.id === parseInt(id));
+	const {categoriesList} = useGetCategories();
+	const [product, setProduct] = useState(null);
 
-	// Если продукт не найден, отображаем сообщение
+	useEffect(() => {
+		async function loadProduct() {
+			if (categoriesList.length > 0 && category && productId) {
+				const selectedCategory = categoriesList.find(item =>
+					item.name.toLowerCase().replace(/\s+/g, '-') === category
+				);
+				if (selectedCategory) {
+					try {
+						const products = await api.products.getProductsList(selectedCategory.id);
+						const foundProduct = products.find(p => p.id === parseInt(productId));
+						if (foundProduct) {
+							const normalized = {
+								id: foundProduct.id,
+								title: foundProduct.name,
+								price: parseFloat(foundProduct.price),
+								image: `data:image/png;base64,${foundProduct.image}`,
+								category: foundProduct.categoryName,
+								description: foundProduct.description || 'No description available'
+							};
+							setProduct(normalized);
+						}
+					} catch (e) {
+						console.error('Ошибка при загрузке продукта:', e);
+					}
+				}
+			}
+		}
+		loadProduct();
+	}, [category, productId, categoriesList]);
+
 	if (!product) {
 		return (
 			<section className="section_01">
@@ -22,10 +52,8 @@ const DetailProductContainer = ({product}) => {
 		);
 	}
 
-	// Обработчик для добавления товара в корзину
 	const handleAddToCart = () => {
-		addToCart(counter,product);
-
+		addToCart(counter, product);
 	};
 
 	return (
@@ -55,7 +83,7 @@ const DetailProductContainer = ({product}) => {
 					<button
 						className="section_01__promotions-item-button button"
 						data-cart
-						onClick={handleAddToCart} // Добавляем обработчик
+						onClick={handleAddToCart}
 					>
 						add to cart
 					</button>

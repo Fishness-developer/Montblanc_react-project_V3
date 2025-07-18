@@ -1,9 +1,9 @@
 @use 'variables' as *;
 @use 'mixins' as *;
+
 .header {
 	@include block-set(100%, 120px, 0 30px, 0, var(--color-green));
 	display: flex;
-
 	box-sizing: border-box;
 
 	&__inner {
@@ -15,7 +15,7 @@
 	}
 
 	&__logo {
-		//		flex-grow:1;
+		// flex-grow:1;
 	}
 
 	&__menu.services {
@@ -27,7 +27,8 @@
 		justify-content: left;
 		gap: 30px;
 		margin: 0 50px;
-		a{
+
+		a {
 			@include font-face($font-size-regular * 1px, 300, var(--color-white));
 			text-transform: none;
 			text-decoration: none;
@@ -38,13 +39,15 @@
 		@include font-face($font-size-regular * 1px, 300, var(--color-white));
 		text-transform: uppercase;
 		text-decoration: none;
-
 	}
-	&__menu.services ul li:hover, &__menu.services ul a:hover{
+
+	&__menu.services ul li:hover,
+	&__menu.services ul a:hover {
 		cursor: pointer;
 	}
 
-	&__menu.services li::after, &__menu.services a::after {
+	&__menu.services li::after,
+	&__menu.services a::after {
 		content: "";
 		position: relative;
 		display: flex;
@@ -55,10 +58,10 @@
 		background: var(--color-white);
 	}
 
-	&__menu.services li:hover::after, &__menu.services a:hover::after {
+	&__menu.services li:hover::after,
+	&__menu.services a:hover::after {
 		width: 100%;
 		transition: 0.5s;
-
 	}
 
 	&__cart_container {
@@ -71,8 +74,12 @@
 
 	&__drop-cart-container {
 		position: relative;
-		display: none;
+		display: flex;
 		z-index: 10;
+
+		&.open {
+			display: block;
+		}
 	}
 
 	&__drop-cart {
@@ -86,11 +93,7 @@
 		}
 
 		p.cart-amount {
-			@include font-face(
-					$font-size-header-fourth * 1px,
-					600,
-					var(--color-beige)
-			);
+			@include font-face($font-size-header-fourth * 1px, 600, var(--color-beige));
 		}
 
 		.cart-item-container {
@@ -148,7 +151,7 @@
 		border: 1px solid #fff;
 		display: flex;
 		align-items: center;
-//		padding-left: 50px;
+		// padding-left: 50px;
 		white-space: nowrap;
 	}
 
@@ -217,19 +220,22 @@
 	}
 
 	&__burger {
-//		background: url("../images/svg/burger.svg") no-repeat;
+		// background: url("../images/svg/burger.svg") no-repeat;
 		width: 24px;
 		height: 16px;
 		border: 0;
 	}
 
 	.all-goods {
-//		background: url("../images/svg/goods.svg") 20px 50% no-repeat;
+		// background: url("../images/svg/goods.svg") 20px 50% no-repeat;
 	}
 
 	.cart {
-//		background-image: url("../images/svg/cart.svg");
+		// background-image: url("../images/svg/cart.svg");
 		background-repeat: no-repeat;
 		background-position: 20px 50%;
+		position: relative;
+		z-index: 100;
+		background-color: var(--color-green);
 	}
 }

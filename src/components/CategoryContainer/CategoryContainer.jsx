@@ -1,32 +1,69 @@
-import React from 'react';
-import {useParams, Link} from 'react-router-dom';
-
+import React, { useEffect, useState } from 'react';
+import {useParams} from 'react-router-dom';
 import Product from "../Product/Product.jsx";
-
+import api from "../../api/api.js";
+import useGetCategories from "../CatalogContainer/hooks/useGetCategories.jsx";
+import LeftSidebar from "../LeftSidebar/LeftSidebar.jsx";
 
 const CategoryContainer = () => {
-	const products = []
-	const {category} = useParams(); // Извлекаем категорию из URL
+	const {category} = useParams();
+	const [productsByCategories, setProductsByCategories] = useState([]);
+	const [categoryName, setCategoryName] = useState('');
+	const { categoriesList } = useGetCategories();
 
+	useEffect(() => {
+		if (categoriesList.length > 0 && category) {
+			const selectedCategory = categoriesList.find(item =>
+				item.name.toLowerCase().replace(/\s+/g, '-') === category
+			);
+			if (selectedCategory) {
+				setCategoryName(selectedCategory.name);
+				fetchProducts(selectedCategory.id);
+			} else {
+				setCategoryName('Category Not Found');
+				setProductsByCategories([]);
+			}
+		}
+	}, [category, categoriesList]);
 
-	// Фильтруем товары по категории (сравнение без учета регистра)
-	const filteredProducts = products.filter(
-		(product) => product.category.toLowerCase().replace(/\s+/g, '-') === category.toLowerCase()
-	);
+	const fetchProducts = async (catId) => {
+		try {
+			const products = await api.products.getProductsList(catId);
+			const normalizedProducts = products.map(product => ({
+				id: product.id,
+				title: product.name,
+				price: parseFloat(product.price),
+				image: `data:image/png;base64,${product.image}`,
+				category: product.categoryName
+			}));
+			setProductsByCategories(Array.isArray(normalizedProducts) ? normalizedProducts : []);
+		} catch (e) {
+			console.error('Ошибка при получении продуктов:', e);
+			setProductsByCategories([]);
+		}
+	};
 
 	return (
-		<div className="catalog__products">
-			<h2>product categories</h2>
-			{filteredProducts.length > 0 ? (
-				filteredProducts.map((product) => (
-					<Product
-						key={product.id}
-						product={product}
-					/>
-				))
-			) : (
-				<p>Товары в этой категории отсутствуют.</p>
-			)}
+		<div className="section_catalog__container">
+			<div className="left_sidebar">
+				<h3>Catalog</h3>
+				<LeftSidebar />
+			</div>
+			<div className="right_sidebar">
+				<h2>{categoryName}</h2>
+				<ul className="section_01__promotions">
+					{productsByCategories.length === 0 ? (
+						<p>Нет продуктов в этой категории или ошибка загрузки.</p> // Сообщение при пустом списке
+					) : (
+						productsByCategories.map((item) => (
+							<Product
+								key={item.id}
+								product={item}
+							/>
+						))
+					)}
+				</ul>
+			</div>
 		</div>
 	);
 };

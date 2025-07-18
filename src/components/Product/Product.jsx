@@ -1,9 +1,7 @@
 import React from 'react';
-import DetailProductContainer
-	from "../DetailProductContainer/DetailProductContainer.jsx";
 import {useNavigate} from "react-router-dom";
 
-const Product = ({product, handleChooseProduct}) => {
+const Product = ({product}) => {
 	const navigate = useNavigate();
 	const formatTitleForUrl = (title) => {
 		return title
@@ -35,8 +33,7 @@ const Product = ({product, handleChooseProduct}) => {
 			<button
 				className="section_01__promotions-item-button button"
 				data-cart
-				// onClick={() => navigate(`/catalog/${product.category.toLowerCase().replace(/\s+/g, '-')}/${product.id}`)}
-				onClick={() => handleChooseProduct(product.id)}
+				onClick={() => navigate(`/catalog/${product.category.toLowerCase().replace(/\s+/g, '-')}/${product.id}`)}
 			>
 				view product
 			</button>

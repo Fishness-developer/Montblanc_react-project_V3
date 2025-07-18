@@ -1,17 +1,13 @@
 import React, { useEffect, useState } from 'react';
-import AllProducts from "../AllProducts/AllProducts.jsx"; // Если не используется, можно удалить
 import Product from "../Product/Product.jsx";
 import LeftSidebar from "../LeftSidebar/LeftSidebar.jsx";
-import DetailProductContainer from "../DetailProductContainer/DetailProductContainer.jsx";
 import api from "../../api/api.js"; // Импорт API
 import useGetCategories from "../CatalogContainer/hooks/useGetCategories.jsx"; // Хук для категорий
 
 const CatalogContainer = () => {
 	const [productsByCategories, setProductsByCategories] = useState([]);
 	const [categoryId, setCategoryId] = useState(1);
-	const [isProductDetailOpen, setIsProductDetailOpen] = useState(false);
 	const [categoryName, setCategoryName] = useState('');
-	const [selectedProductId, setSelectedProductId] = useState(null);
 
 	const { categoriesList } = useGetCategories(); // Получаем список категорий из API
 
@@ -50,41 +46,27 @@ const CatalogContainer = () => {
 		}
 	}, [categoryId, categoriesList]); // Зависимость от categoriesList
 
-	const handleChooseProduct = (id) => {
-		setIsProductDetailOpen(true);
-		setSelectedProductId(id);
-	};
-
-	const selectedProduct = productsByCategories.find(product => product.id === selectedProductId);
-
 	return (
-		<div>
-			{isProductDetailOpen ? (
-				<DetailProductContainer product={selectedProduct} />
-			) : (
-				<div className="section_catalog__container">
-					<div className="left_sidebar">
-						<h3>Catalog</h3>
-						<LeftSidebar setCategoryId={setCategoryId} categoryId={categoryId} />
-					</div>
-					<div className="right_sidebar">
-						<h2>{categoryName}</h2>
-						<ul className="section_01__promotions">
-							{productsByCategories.length === 0 ? (
-								<p>Нет продуктов в этой категории или ошибка загрузки.</p> // Сообщение при пустом списке
-							) : (
-								productsByCategories.map((item) => (
-									<Product
-										handleChooseProduct={handleChooseProduct}
-										key={item.id}
-										product={item}
-									/>
-								))
-							)}
-						</ul>
-					</div>
-				</div>
-			)}
+		<div className="section_catalog__container">
+			<div className="left_sidebar">
+				<h3>Catalog</h3>
+				<LeftSidebar />
+			</div>
+			<div className="right_sidebar">
+				<h2>{categoryName}</h2>
+				<ul className="section_01__promotions">
+					{productsByCategories.length === 0 ? (
+						<p>Нет продуктов в этой категории или ошибка загрузки.</p> // Сообщение при пустом списке
+					) : (
+						productsByCategories.map((item) => (
+							<Product
+								key={item.id}
+								product={item}
+							/>
+						))
+					)}
+				</ul>
+			</div>
 		</div>
 	);
 };
