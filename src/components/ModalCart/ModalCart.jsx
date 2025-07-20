@@ -6,7 +6,9 @@ const closeStyle = {
 	fill: "#ffffff",
 }
 const ModalCart = ({ cartItems, addToCart, deleteFromCart }) => {
-	const total = cartItems.reduce((sum, item) => sum + item.price * (item.quantity || 1), 0);
+	// Расчёт общей суммы с учётом product.number
+	const total = cartItems.reduce((sum, item) => sum + item.price * (item.number || 1), 0);
+
 
 	return (
 		<div className="header__drop-cart">
