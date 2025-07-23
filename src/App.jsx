@@ -12,6 +12,7 @@ import Contacts from "./pages/Contacts.jsx";
 import CartProvider from "./context/CartContext/CartContext.jsx";
 import DetailProductPage from "./pages/DetailProductPage.jsx";
 import Category from "./pages/Category.jsx";
+import Order from "./pages/Order.jsx";
 
 const App = () => {
 	return (
@@ -29,6 +30,7 @@ const App = () => {
 							<Route path="/contacts" element={<Contacts />} />
 							<Route path="/sign-in" element={<SignIn />} />
 							<Route path="/sign-up" element={<SignUp />} />
+							<Route path="/order" element={<Order />} />
 						</Route>
 					</Routes>
 				</BrowserRouter>

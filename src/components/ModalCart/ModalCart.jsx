@@ -1,5 +1,6 @@
 import React from 'react';
 import Close from '../../icons/Close/Close.jsx';
+import { useNavigate } from 'react-router-dom';
 const closeStyle = {
 	width: "20px",
 	height: "20px",
@@ -7,6 +8,7 @@ const closeStyle = {
 }
 const ModalCart = ({ cartItems, addToCart, deleteFromCart }) => {
 	// Расчёт общей суммы с учётом product.number
+	const navigate = useNavigate();
 	const total = cartItems.reduce((sum, item) => sum + item.price * (item.number || 1), 0);
 
 
@@ -50,6 +52,7 @@ const ModalCart = ({ cartItems, addToCart, deleteFromCart }) => {
 			<button
 				className={`header__drop-cart-button ${cartItems.length === 0 ? 'hide' : ''}`}
 				data-cart-total
+				onClick={() => navigate(`/order`)}
 			>
 				Order
 			</button>
