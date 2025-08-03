@@ -1,23 +1,32 @@
-import React, { useEffect, useState } from 'react';
+import React, {useEffect, useState} from 'react';
 import api from "../../../api/api.js";
+import {useDispatch, useSelector} from "react-redux";
+import {
+	fetchCategories
+} from "../../../redux/slices/categoriesSlice/categoriesSlice.js";
+import {
+	selectCategories
+} from "../../../redux/slices/categoriesSlice/categoriesSelectors.js";
 
 const useGetCategories = () => {
-	const [categoriesList, setCategoriesList] = useState([]);
-
-	const fetchCategoriesList = async () => {
-		try {
-			const categories = await api.category.getCategories();
-			setCategoriesList(categories);
-		} catch (e) {
-			console.log('Ошибка при получении категорий:', e);
-		}
-	};
+	const categoriesList = useSelector(selectCategories);
+	// const [categoriesList, setCategoriesList] = useState([]);
+	const dispatch = useDispatch();
+	// const fetchCategoriesList = async () => {
+	// 	try {
+	// 		const categories = await api.category.getCategories();
+	// 		setCategoriesList(categories);
+	// 	} catch (e) {
+	// 		console.log('Ошибка при получении категорий:', e);
+	// 	}
+	// };
 
 	useEffect(() => {
-		fetchCategoriesList();
+		// fetchCategoriesList();
+		dispatch(fetchCategories());
 	}, []);
 
-	return { categoriesList };
+	return {categoriesList};
 };
 
 export default useGetCategories;

@@ -1,15 +1,23 @@
-import React, { useEffect, useState } from 'react';
+import React, {useEffect, useState} from 'react';
 import Product from "../Product/Product.jsx";
 import LeftSidebar from "../LeftSidebar/LeftSidebar.jsx";
 import api from "../../api/api.js"; // Импорт API
-import useGetCategories from "../CatalogContainer/hooks/useGetCategories.jsx"; // Хук для категорий
+import useGetCategories from "../CatalogContainer/hooks/useGetCategories.jsx";
+import {useDispatch, useSelector} from "react-redux";
+import {
+	fetchProductsByCategory
+} from "../../redux/slices/productsSlice/productsSlice.js";
+import {
+	selectProducts
+} from "../../redux/slices/productsSlice/productsSelectors.js"; // Хук для категорий
 
 const CatalogContainer = () => {
 	const [productsByCategories, setProductsByCategories] = useState([]);
 	const [categoryId, setCategoryId] = useState(1);
 	const [categoryName, setCategoryName] = useState('');
-
-	const { categoriesList } = useGetCategories(); // Получаем список категорий из API
+	const dispatch = useDispatch();
+	const {categoriesList} = useGetCategories(); // Получаем список категорий из API
+	const products = useSelector(selectProducts);
 
 	const fetchProducts = async (catId) => {
 		try {
@@ -17,10 +25,11 @@ const CatalogContainer = () => {
 			const selectedCategory = categoriesList.find(item => item.id === catId);
 			const name = selectedCategory ? selectedCategory.name : 'All Products'; // Используем 'name' из API для категорий
 			setCategoryName(name);
+			dispatch(fetchProductsByCategory(catId));
 
 			// Загружаем продукты из API по categoryId
-			const products = await api.products.getProductsList(catId);
-			console.log("Товары из API:", products); // Для отладки
+			// const products = await api.products.getProductsList(catId);
+			// console.log("Товары из API:", products); // Для отладки
 
 			// Нормализуем данные для соответствия ожидаемому формату в коде
 			const normalizedProducts = products.map(product => ({

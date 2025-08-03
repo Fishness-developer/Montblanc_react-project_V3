@@ -6,9 +6,14 @@ import useCalcAmount from "../../hooks/useCalcAmount.jsx";
 import api from "../../api/api.js";
 import useGetCategories from "../CatalogContainer/hooks/useGetCategories.jsx";
 
+import {useDispatch} from "react-redux";
+import {addProductToCart} from "../../redux/slices/cartSlice/cartSlice.js";
+
+
 const DetailProductContainer = () => {
+	const dispatch = useDispatch();
 	const {category, productId} = useParams();
-	const {addToCart} = useCart();
+
 	const {handleDecrease,handleIncrease, counter} = useCalcAmount();
 	const {categoriesList} = useGetCategories();
 	const [product, setProduct] = useState(null);
@@ -53,7 +58,8 @@ const DetailProductContainer = () => {
 	}
 
 	const handleAddToCart = () => {
-		addToCart(counter, product);
+		// addToCart(counter, product);
+		dispatch(addProductToCart({ product, counter }));
 	};
 
 	return (

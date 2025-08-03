@@ -8,6 +8,10 @@ import CartIcon from "../../../icons/CartIcon/CartIcon.jsx";
 import LanguageContext from "../../../context/LanguageContext/LanguageContext.jsx";
 import { useCart } from "../../../context/CartContext/CartContext.jsx";
 import ModalCart from "../../ModalCart/ModalCart.jsx";
+import {
+	selectCartItems
+} from "../../../redux/slices/cartSlice/cartSelectors.js";
+import {useSelector} from "react-redux";
 
 const iconStyle = {
 	width: "20px",
@@ -22,7 +26,9 @@ const cartStyle = {
 };
 
 const Header = () => {
-	const { cartItems, addToCart, deleteFromCart } = useCart();
+	// const { cartItems, addToCart, deleteFromCart } = useCart();
+	const { deleteFromCart } = useCart();
+	const cartItems = useSelector(selectCartItems);
 	const { setLocale } = useContext(LanguageContext);
 	const [isModalOpen, setIsModalOpen] = useState(false);
 
@@ -88,7 +94,7 @@ const Header = () => {
 						{isModalOpen && (
 							<ModalCart
 								cartItems={cartItems}
-								addToCart={addToCart}
+								// addToCart={addToCart}
 								deleteFromCart={deleteFromCart}
 							/>
 						)}

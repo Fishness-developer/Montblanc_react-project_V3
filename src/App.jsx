@@ -13,8 +13,34 @@ import CartProvider from "./context/CartContext/CartContext.jsx";
 import DetailProductPage from "./pages/DetailProductPage.jsx";
 import Category from "./pages/Category.jsx";
 import Order from "./pages/Order.jsx";
+import {
+	addProductToCart,
+	removeFromCart,
+
+} from "./redux/slices/cartSlice/cartSlice.js";
+import {useDispatch, useSelector} from "react-redux";
+import {selectCartItems} from "./redux/slices/cartSlice/cartSelectors.js";
+import {
+	selectCategories
+} from "./redux/slices/categoriesSlice/categoriesSelectors.js";
+import {
+	selectProducts
+} from "./redux/slices/productsSlice/productsSelectors.js";
 
 const App = () => {
+	const products = useSelector(selectProducts);
+	const categories = useSelector(selectCategories);
+	console.log("categories:", categories);
+	const cartItems = useSelector(selectCartItems);
+	const dispatch = useDispatch();
+
+
+	const handleRemoveFromCart = (id) => {
+		dispatch(removeFromCart(id));
+	};
+
+
+
 	return (
 		<CartProvider>
 			<LanguageProvider>

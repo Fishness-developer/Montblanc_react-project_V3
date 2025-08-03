@@ -1,18 +1,33 @@
 import React, { useEffect, useState } from 'react';
 import Product from "../Product/Product.jsx";
 import api from "../../api/api.js";
+import {useDispatch, useSelector} from "react-redux";
 import useGetCategories from "../CatalogContainer/hooks/useGetCategories.jsx";
+import {
+	selectProducts
+} from "../../redux/slices/productsSlice/productsSelectors.js";
+import {
+	fetchProductsByCategory
+} from "../../redux/slices/productsSlice/productsSlice.js";
 
 const HomeContainer = () => {
 	const [specialProducts, setSpecialProducts] = useState([]);
 	const { categoriesList } = useGetCategories();
+	const dispatch = useDispatch();
+	// const products = useSelector(selectProducts);
+
 
 	const fetchSpecialProducts = async () => {
 		try {
 			let allSpecialProducts = [];
 			for (const category of categoriesList) {
-				const products = await api.products.getProductsList(category.id);
+
+				// dispatch(fetchProductsByCategory(category.id));
+
+				// const products = await api.products.getProductsList(category.id);
+				const products = await dispatch(fetchProductsByCategory(category.id)).unwrap();
 				const filteredProducts = products.filter(product => product.specialOffers === true);
+				console.log("filteredProducts: ", filteredProducts);
 				const normalizedProducts = filteredProducts.map(product => ({
 					id: product.id,
 					title: product.name,
@@ -31,7 +46,7 @@ const HomeContainer = () => {
 
 	useEffect(() => {
 		if (categoriesList.length > 0) {
-			fetchSpecialProducts();
+			fetchSpecialProducts(specialProducts);
 		}
 	}, [categoriesList]);
 

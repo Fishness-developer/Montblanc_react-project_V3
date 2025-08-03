@@ -1,13 +1,16 @@
 import React from 'react';
 import Close from '../../icons/Close/Close.jsx';
 import { useNavigate } from 'react-router-dom';
+import {useDispatch} from "react-redux";
+import {removeFromCart} from "../../redux/slices/cartSlice/cartSlice.js";
 const closeStyle = {
 	width: "20px",
 	height: "20px",
 	fill: "#ffffff",
 }
-const ModalCart = ({ cartItems, addToCart, deleteFromCart }) => {
-	// Расчёт общей суммы с учётом product.number
+const ModalCart = ({ cartItems}) => {
+	const dispatch = useDispatch();
+
 	const navigate = useNavigate();
 	const total = cartItems.reduce((sum, item) => sum + item.price * (item.number || 1), 0);
 
@@ -39,7 +42,8 @@ const ModalCart = ({ cartItems, addToCart, deleteFromCart }) => {
 								<p>{product.number} pcs</p>
 								<button
 									className="cart-close"
-									onClick={() => deleteFromCart(product.id)}
+									// onClick={() => removeFromCart(product.id)}
+									onClick={() =>	dispatch(removeFromCart(product.id))}
 								><Close {...closeStyle} /></button>
 
 							</div>

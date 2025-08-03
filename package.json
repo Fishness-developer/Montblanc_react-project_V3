@@ -16,6 +16,7 @@
     "@emotion/styled": "^11.14.0",
     "@mui/icons-material": "^7.1.1",
     "@mui/material": "^7.1.1",
+    "@reduxjs/toolkit": "^2.8.2",
     "axios": "^1.10.0",
     "i18next": "^25.2.1",
     "intl": "^1.2.5",
@@ -23,6 +24,7 @@
     "react-dom": "^19.1.0",
     "react-i18next": "^15.5.3",
     "react-intl": "^7.1.11",
+    "react-redux": "^9.2.0",
     "react-router-dom": "^7.6.2",
     "react-slick": "^0.30.3",
     "slick-carousel": "^1.8.1"
