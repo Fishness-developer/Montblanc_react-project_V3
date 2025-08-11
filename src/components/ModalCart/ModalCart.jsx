@@ -28,7 +28,7 @@ const ModalCart = ({ cartItems}) => {
 					<p>Your cart is empty</p>
 				) : (
 					cartItems.map((product) => (
-						<div className="cart-item-container">
+						<div key={product.id} className="cart-item-container">
 							<div className="cart-order-product" key={product.id}>
 								<div className="cart-image"><img
 									src={product.image}

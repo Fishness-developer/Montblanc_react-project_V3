@@ -147,6 +147,11 @@
 			max-width: 1170px;
 			box-sizing: border-box;
 			.cart-order-product {
+				@include font-face(
+						$font-size-regular * 1px,
+						300,
+						var(--color-black)
+				);
 				display: grid;
 				grid-template-columns: 1fr 3fr 1fr 1fr 1fr;
 				grid-template-rows: 1fr;
@@ -168,6 +173,8 @@
 			}
 			.cart-close{
 				cursor: pointer;
+				background: none;
+				border: 0;
 			}
 		}
 		.total_order_price {
@@ -181,11 +188,7 @@
 
 			p,
 			h3 {
-				@include font-face(
-						$font-size-header-fourth * 1px,
-						500,
-						var(--color-white)
-				);
+				@include font-face($font-size-header-fourth * 1px,500,var(--color-white)!important);
 			}
 		}
 		.order_delivery {
@@ -312,11 +315,16 @@
 			text-transform: none;
 			font-weight: 200;
 			@include font-face(12px, 100, var(--color-dark));
+			background:  var(--color-white);
 		}
 		textarea {
 			padding: 5px 10px;
 			border-color: rgba(0, 0, 0, 0.1);
 			min-height: 80px;
+			background:  var(--color-white);
+			@include font-face(12px, 100, var(--color-dark));
+			text-transform: none;
+			font-weight: 200;
 		}
 		label {
 			@include font-face(16px, 500, var(--color-dark));

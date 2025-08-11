@@ -19,7 +19,8 @@ const httpRequest = async (method, url, data) => {
 const api = {
 	products: {
 		getProduct: (productId) => httpRequest('GET', `http://194.113.32.17:8080/products?product_id=${productId}`),
-		getProductsList: (categoryId) => httpRequest('GET', `http://194.113.32.17:8080/products?category_id=${categoryId}`)
+		getProductsList: (categoryId) => httpRequest('GET', `http://194.113.32.17:8080/products?category_id=${categoryId}`),
+		getAllProductsSpecialls: ()=> httpRequest('GET', `http://194.113.32.17:8080/products`)
 	},
 	category:{
 		getCategories: () => httpRequest('GET', 'http://194.113.32.17:8080/categories'),

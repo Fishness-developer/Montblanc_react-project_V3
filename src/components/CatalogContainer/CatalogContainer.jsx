@@ -16,7 +16,7 @@ const CatalogContainer = () => {
 	const [categoryId, setCategoryId] = useState(1);
 	const [categoryName, setCategoryName] = useState('');
 	const dispatch = useDispatch();
-	const {categoriesList} = useGetCategories(); // Получаем список категорий из API
+	const {categoriesList} = useGetCategories();
 	const products = useSelector(selectProducts);
 
 	const fetchProducts = async (catId) => {
