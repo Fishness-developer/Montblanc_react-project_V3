@@ -38,7 +38,7 @@
 		justify-content: center;
 		flex-direction: column;
 		align-items: center;
-		row-gap: 10px;
+		row-gap: 20px;
 		box-sizing: border-box;
 	}
 
@@ -142,6 +142,9 @@
 		align-items: center;
 		padding: 0 30px;
 		box-sizing: border-box;
+		.status{
+			@include font-face(	$font-size-regular * 1px,	300,var(--color-black));
+		}
 		.cart-item-container {
 			@include block-set(100%, auto, auto, 0 auto, none);
 			max-width: 1170px;
@@ -196,11 +199,20 @@
 					100%,
 					auto,
 					30px,
-					50px auto 10px auto,
+					10px auto 10px auto,
 					var(--color-white)
 			);
+			.map-container{
+				margin-top: 20px;
+			}
+
+
 			box-sizing: border-box;
 			max-width: 1170px;
+
+			&__text{
+				@include font-face($font-size-regular * 1px,400,var(--color-black)!important);
+			}
 
 			.radio_group {
 				display: flex;
@@ -329,6 +341,7 @@
 		label {
 			@include font-face(16px, 500, var(--color-dark));
 		}
+
 	}
 	.order_payment {
 		&__container {

@@ -1,16 +1,23 @@
 import React from 'react';
 import {useNavigate} from "react-router-dom";
 
-const Product = ({product}) => {
+const Product = ({product, showDiscount = false}) => { // Добавляем prop showDiscount
 	const navigate = useNavigate();
+
 	const formatTitleForUrl = (title) => {
 		return title
 			.toLowerCase()
-			.replace(/[,]/g, '') // Удаляем запятые
-			.replace(/[^a-z0-9]+/g, '-') // Заменяем все неалфавитно-цифровые символы на дефис
-			.replace(/-+/g, '-') // Удаляем множественные дефисы
-			.replace(/^-|-$/g, ''); // Удаляем дефисы в начале и конце
+			.replace(/[,]/g, '')
+			.replace(/[^a-z0-9]+/g, '-')
+			.replace(/-+/g, '-')
+			.replace(/^-|-$/g, '');
 	};
+
+	// Вычисляем цену со скидкой
+	const discountedPrice = product.discount
+		? (product.price * (1 - product.discount / 100)).toFixed(2)
+		: null;
+
 	return (
 		<li
 			className="section_01__promotions-item"
@@ -25,9 +32,22 @@ const Product = ({product}) => {
 				/>
 			</div>
 			<p className="price">
-				<span className="extra">{product.price.toFixed(2)}</span> ₪
+				{showDiscount && product.discount ? (
+					<>
+						<p>
+							<span className="extra">{discountedPrice}</span> ₪
+						</p>
+						<p className="offer">
+							{parseFloat(product.price).toFixed(2)}₪
+							<span className="percent">-{product.discount}%</span>
+						</p>
+					</>
+				) : (
+					<p>
+						<span className="extra">{parseFloat(product.price).toFixed(2)}</span> ₪
+					</p>
+				)}
 			</p>
-			{/*<p className="offer">58.00₪<span className="percent">-23%</span></p>*/}
 			<p className="item-description">{product.title}</p>
 
 			<button
@@ -37,9 +57,10 @@ const Product = ({product}) => {
 			>
 				view product
 			</button>
-
 		</li>
 	);
 };
 
+
 export default Product;
+

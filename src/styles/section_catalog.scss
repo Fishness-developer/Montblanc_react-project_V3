@@ -6,6 +6,16 @@
 	display: flex;
 	justify-content: center;
 
+	.extra{
+		font-size: 30px!important;
+		font-weight: 500!important;
+	}
+  .offer {
+		font-size: 14px;
+		font-weight: 300;
+		text-decoration: line-through;
+		margin: 10px 0;
+	}
 	h3 {
 		color: var(--color-dark);
 		margin: 0;
@@ -126,4 +136,5 @@
 	[data-catalog-list].open:has(ul.catalog__sublist) .catalog__item::after {
 		content: "−";
 	}
+
 }

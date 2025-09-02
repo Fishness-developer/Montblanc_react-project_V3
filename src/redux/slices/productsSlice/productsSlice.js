@@ -12,8 +12,14 @@ export const fetchProductsByCategory = createAsyncThunk(
 export const fetchProductsSpecials = createAsyncThunk(
 	"products/fetchSpecials",
 	async () => {
-		const res = await api.products.getAllProductsSpecialls();
+		try {
+		const res = await api.products.getAllProductsSpecials();
+		console.log('API response:', res);
 		return res;
+		} catch (e) {
+			console.error('Thunk error:', e);
+			throw e;  // Добавьте throw для rejected
+		}
 	}
 );
 

@@ -1,17 +1,20 @@
 import "../../../styles/header.scss";
 import Logo from "../../../assets/images/Logo.png";
-import { Link } from "react-router-dom";
-import React, { useContext, useState } from "react";
+import {Link} from "react-router-dom";
+
+import React, {useContext, useState} from "react";
 import PhoneIcon from "../../../icons/PhoneIcon/PhoneIcon.jsx";
 import ClockIcon from "../../../icons/ClockIcon/ClockIcon.jsx";
 import CartIcon from "../../../icons/CartIcon/CartIcon.jsx";
-import LanguageContext from "../../../context/LanguageContext/LanguageContext.jsx";
-import { useCart } from "../../../context/CartContext/CartContext.jsx";
+import LanguageContext
+	from "../../../context/LanguageContext/LanguageContext.jsx";
+import {useCart} from "../../../context/CartContext/CartContext.jsx";
 import ModalCart from "../../ModalCart/ModalCart.jsx";
 import {
 	selectCartItems
 } from "../../../redux/slices/cartSlice/cartSelectors.js";
 import {useSelector} from "react-redux";
+import ModalOverlay from "../../ModalOverlay/ModalOverlay.jsx";
 
 const iconStyle = {
 	width: "20px",
@@ -27,19 +30,30 @@ const cartStyle = {
 
 const Header = () => {
 	// const { cartItems, addToCart, deleteFromCart } = useCart();
-	const { deleteFromCart } = useCart();
+	const {deleteFromCart} = useCart();
 	const cartItems = useSelector(selectCartItems);
-	const { setLocale } = useContext(LanguageContext);
+	const {setLocale} = useContext(LanguageContext);
 	const [isModalOpen, setIsModalOpen] = useState(false);
+	const [isOverlayOpen, setIsOverlayOpen] = useState(false);
 
 	const handleOpenCartModal = () => {
 		setIsModalOpen(!isModalOpen);
 	};
 
+const handleOpenOverlay = () => {
+	setIsOverlayOpen(!isOverlayOpen);
+}
+	const handleCloseModal = () => {
+		setIsOverlayOpen(false);
+	};
+
 	return (
 		<header className="header">
 			<div className="header__inner">
-				<Link to={`/`} className="header__logo logo">
+				<Link
+					to={`/`}
+					className="header__logo logo"
+				>
 					<img
 						className="logo__image"
 						src={Logo}
@@ -50,17 +64,28 @@ const Header = () => {
 				</Link>
 				<div className="header__menu services">
 					<ul>
-						<Link to={`/sign-up`} className="header__menu-item">
-							Sign Up
-						</Link>
-						<Link to={`/sign-in`} className="header__menu-item">
-							Sign In
-						</Link>
+						{/*<Link to={`/sign-up`} className="header__menu-item">*/}
+						{/*	Sign Up*/}
+						{/*</Link>*/}
+						{/*<Link to={`/sign-in`} className="header__menu-item">*/}
+						{/*	Sign In*/}
+						{/*</Link>*/}
+						<button className="header__button button" onClick={handleOpenOverlay}>Sign In</button>
+						{isOverlayOpen && (
+							<ModalOverlay isOverlayOpen={isOverlayOpen} onCloseOverlay={handleCloseModal}
+							></ModalOverlay>
+						)}
 						<li></li>
-						<li className="header__menu-item" onClick={() => setLocale("en")}>
+						<li
+							className="header__menu-item"
+							onClick={() => setLocale("en")}
+						>
 							En
 						</li>
-						<li className="header__menu-item" onClick={() => setLocale("ru")}>
+						<li
+							className="header__menu-item"
+							onClick={() => setLocale("ru")}
+						>
 							Ru
 						</li>
 					</ul>
@@ -87,7 +112,10 @@ const Header = () => {
 						>
 							<CartIcon {...cartStyle} />
 							<p>cart</p>
-							<p className="amount-items-null" data-amount>
+							<p
+								className="amount-items-null"
+								data-amount
+							>
 								{cartItems.length}
 							</p>
 						</button>
