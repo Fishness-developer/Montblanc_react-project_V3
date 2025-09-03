@@ -5,7 +5,7 @@ import SliderVanila from "../components/SliderVanilla/SliderVanila.jsx";
 const Home = () => {
 	return (
 		<div>
-			<SliderVanila />
+			{/*<SliderVanila />*/}
 			<HomeContainer />
 		</div>
 	);

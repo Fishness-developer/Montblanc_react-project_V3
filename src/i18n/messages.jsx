@@ -1,6 +1,6 @@
 const messages = {
 	en: {
-		specialOffers: "special offers",
+		allOffers: "all offers",
 		deliveryAndPayment: "delivery and payment",
 		catalog: "catalog",
 		delivery: "delivery",
@@ -14,7 +14,7 @@ const messages = {
 		featureNav: "Feature",
 	},
 	ru: {
-		specialOffers: "Специальные предложения",
+		allOffers: "Специальные предложения",
 		deliveryAndPayment: "доставка и оплата",
 		items:
 			"{count, plural, one {У вас один елемент} few {У вас # елементи} many {У вас # елементів} other {У вас # елементів}}",

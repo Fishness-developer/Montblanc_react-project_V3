@@ -53,7 +53,7 @@ const CategoryContainer = () => {
 				<h2>{categoryName}</h2>
 				<ul className="section_01__promotions">
 					{productsByCategories.length === 0 ? (
-						<p>Нет продуктов в этой категории или ошибка загрузки.</p> // Сообщение при пустом списке
+						<p>Category is empty</p> // Сообщение при пустом списке
 					) : (
 						productsByCategories.map((item) => (
 							<Product
