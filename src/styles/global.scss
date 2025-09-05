@@ -97,6 +97,8 @@ a:hover, a:not(:hover), a:hover::after, a:not(:hover)::after, .section_01__promo
   display: flex;
   align-items: center;
   width: 1170px;
+  display: flex;
+  gap: 5px;
 }
 
 .breadcrumbs-list.rtl {
@@ -107,6 +109,7 @@ a:hover, a:not(:hover), a:hover::after, a:not(:hover)::after, .section_01__promo
   display: flex;
   align-items: center;
   font-size: 14px;
+  gap: 5px;
 }
 
 .breadcrumbs-link {

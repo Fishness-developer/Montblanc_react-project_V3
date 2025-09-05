@@ -1,21 +1,19 @@
-import React, {useEffect, useState} from 'react';
-import {useParams} from 'react-router-dom';
-import {useCart} from '../../context/CartContext/CartContext';
+import React, { useEffect, useState } from 'react';
+import { useParams } from 'react-router-dom';
+import { useCart } from '../../context/CartContext/CartContext';
 import Amount from "../Amount/Amount.jsx";
 import useCalcAmount from "../../hooks/useCalcAmount.jsx";
 import api from "../../api/api.js";
 import useGetCategories from "../CatalogContainer/hooks/useGetCategories.jsx";
-
-import {useDispatch} from "react-redux";
-import {addProductToCart} from "../../redux/slices/cartSlice/cartSlice.js";
-
+import { useDispatch } from "react-redux";
+import { addProductToCart } from "../../redux/slices/cartSlice/cartSlice.js";
 
 const DetailProductContainer = () => {
 	const dispatch = useDispatch();
-	const {category, productId} = useParams();
+	const { category, productId, productName } = useParams();
 
-	const {handleDecrease,handleIncrease, counter} = useCalcAmount();
-	const {categoriesList} = useGetCategories();
+	const { handleDecrease, handleIncrease, counter } = useCalcAmount();
+	const { categoriesList } = useGetCategories();
 	const [product, setProduct] = useState(null);
 
 	useEffect(() => {
@@ -59,20 +57,18 @@ const DetailProductContainer = () => {
 	}
 
 	const handleAddToCart = () => {
-		// addToCart(counter, product);
 		dispatch(addProductToCart({ product, counter }));
 	};
 
 	// Функция для расчета цены со скидкой
 	const calculatePrice = (price, discount) => {
-		if (discount===0) return parseFloat(price).toFixed(2);
+		if (discount === 0) return parseFloat(price).toFixed(2);
 		const discountedPrice = price * (1 - discount / 100);
 		return parseFloat(discountedPrice).toFixed(2);
 	};
 
 	// Функция для форматирования оригинальной цены
 	const formatOriginalPrice = (price) => parseFloat(price).toFixed(2);
-
 
 	return (
 		<section className="section_catalog">
@@ -92,18 +88,15 @@ const DetailProductContainer = () => {
 				<div className="container_bottom">
 					<div className="amount">
 						<h3>Amount:</h3>
-						<Amount handleDecrease={handleDecrease} handleIncrease={handleIncrease} counter={counter}  />
+						<Amount handleDecrease={handleDecrease} handleIncrease={handleIncrease} counter={counter} />
 					</div>
 					<div className="price">
 						<h3>Price:</h3>
-						{/*<span className="offer">{product.price.toFixed(2)}</span> ₪*/}
 						<span className="extra">
-							{calculatePrice(product.price, product.discount)} ₪</span>
-							{/*<span className="percent">-{product.discount}%</span>*/}
-
+							{calculatePrice(product.price, product.discount)} ₪
+						</span>
 					</div>
-
-						<button
+					<button
 						className="section_01__promotions-item-button button"
 						data-cart
 						onClick={handleAddToCart}

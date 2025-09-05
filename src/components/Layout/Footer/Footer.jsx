@@ -1,7 +1,10 @@
 import React from 'react';
 import Logo from "../../../assets/images/Logo.png";
 import Payment from "../../../assets/images/payment.png";
+import {useIntl} from "react-intl";
+
 const Footer = () => {
+	const intl = useIntl();
 	return (
 		<footer className="footer">
 			<div className="footer__container">
@@ -12,10 +15,10 @@ const Footer = () => {
 					alt=""
 				/>
 					<p className="tel">050 145-28-41</p>
-					<p className="time">daily from 8.00 to 21.00</p>
+					<p className="time">{intl.formatMessage({ id: "daily_from" })} 8.00 to 21.00</p>
 				</div>
 				<div>
-					<h5>For buyers</h5>
+					<h5>{intl.formatMessage({ id: "buyers" })}</h5>
 					<ul>
 						<li className="header__menu-item"><a href="/">Brand </a></li>
 						<li className="header__menu-item"><a href="/">Recipes </a></li>
@@ -27,7 +30,7 @@ const Footer = () => {
 					</ul>
 				</div>
 				<div>
-					<h5>information</h5>
+					<h5>{intl.formatMessage({ id: "information" })}</h5>
 					<ul>
 						<li className="header__menu-item"><a href="/">Delivery and
 							payment </a></li>
@@ -40,7 +43,7 @@ const Footer = () => {
 					</ul>
 				</div>
 				<div>
-					<h5>We accept payment</h5>
+					<h5>{intl.formatMessage({ id: "acceptPayment" })}</h5>
 					<img
 						src={Payment}
 						width="170"

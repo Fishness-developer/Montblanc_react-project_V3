@@ -1,120 +1,62 @@
-import React, { useMemo } from 'react';
-import { useLocation, Link } from 'react-router-dom';
-import { useLanguage } from '../../context/LanguageContext/LanguageContext';
-import useGetCategories from '../CatalogContainer/hooks/useGetCategories.jsx';
-import { useSelector } from 'react-redux';
-import { selectProductsByCategory } from '../../redux/slices/productsSlice/productsSelectors.js';
-import { formatForUrl } from '../../utils/format.js';
-
-
-// Сопоставление маршрутов с их переведёнными названиями
-const staticPages = {
-	'all-offers': 'All Offers',
-	delivery: 'Delivery',
-	contacts: 'Contacts',
-	order: 'Order',
-};
+import React from 'react';
+import { Link, useLocation } from 'react-router-dom';
 
 const BreadCrumbs = () => {
-	const { translate, language } = useLanguage();
-	const { categoriesList } = useGetCategories();
 	const location = useLocation();
-	const products = useSelector((state) =>
-		Object.values(state.products.byCategory).flatMap((category) => category?.products || [])
-	);
+	const pathnames = location.pathname.split('/').filter((x) => x);
 
-	const crumbs = useMemo(() => {
-		const pathnames = location.pathname.split('/').filter((x) => x);
-		const result = [{ path: '/', label: translate('Home') }];
+	// Функция преобразования названий
+	const formatLabel = (label) =>
+		label
+			.split('-') // Разделяем по дефисам
+			.map((word) => word.charAt(0).toUpperCase() + word.slice(1)) // Каждое слово с заглавной буквы
+			.join(' '); // Объединяем слова через пробел
 
-		let currentPath = '';
-
-		pathnames.forEach((segment, index) => {
-			currentPath += `/${segment}`;
-
-			if (segment === 'catalog' && index === 0) {
-				result.push({ path: currentPath, label: translate('Catalog') });
-			} else if (index === 1 && pathnames[0] === 'catalog') {
-				const category = categoriesList.find(
-					(item) => formatForUrl(item.name) === segment
-				);
-				const label = category ? category.name : segment;
-				result.push({ path: currentPath, label });
-			} else if (index === 2 && pathnames[0] === 'catalog') {
-				const product = products.find((p) => p.id === segment);
-				const label = product ? product.title : `Product ${segment}`;
-				result.push({ path: currentPath, label });
-			} else if (index === 0 && staticPages[segment]) {
-				// Обработка статических страниц
-				result.push({ path: currentPath, label: translate(staticPages[segment]) });
-			}
-		});
-
-		return result;
-	}, [location.pathname, categoriesList, products, translate, language]);
+	// Фильтрация сегментов пути, исключая productId (предполагается, что это число)
+	const filteredPathnames = pathnames.filter((segment, index) => {
+		// Если это сегмент productId (числовой, обычно третий в /catalog/:category/:productId/:productName)
+		if (pathnames[0] === 'catalog' && index === 2 && /^\d+$/.test(segment)) {
+			return false; // Пропускаем числовой productId
+		}
+		return true; // Сохраняем остальные сегменты
+	});
 
 	return (
-		<nav className="breadcrumbs" aria-label="Breadcrumb">
-			<ul className={`breadcrumbs-list ${language === 'he' ? 'rtl' : ''}`}>
-				{crumbs.map((crumb, index) => (
-					<li key={crumb.path} className="breadcrumbs-item">
-						{index === crumbs.length - 1 ? (
-							<span className="breadcrumbs-current">{crumb.label}</span>
-						) : (
-							<>
-								<Link to={crumb.path} className="breadcrumbs-link">
-									{crumb.label}
-								</Link>
-								<span className="breadcrumbs-separator">
-                  {language === 'he' ? ' ← ' : ' → '}
-                </span>
-							</>
-						)}
-					</li>
-				))}
+		<nav className="breadcrumbs">
+			<ul className="breadcrumbs-list">
+				{/* Всегда отображаем "Home" с разделителем (если маршрут не пустой) */}
+				<li className="breadcrumbs-item">
+					<Link className="breadcrumbs-link" to="/">
+						Home
+					</Link>
+					{filteredPathnames.length > 0 && <span className="breadcrumbs-separator"> → </span>}
+				</li>
+
+				{filteredPathnames.map((value, index) => {
+					// Формируем путь, используя оригинальные pathnames до текущего индекса, чтобы сохранить productId в URL
+					const originalIndex = pathnames.indexOf(value);
+					const to = `/${pathnames.slice(0, originalIndex + 1).join('/')}`;
+					const isLast = index === filteredPathnames.length - 1;
+					const formattedLabel = formatLabel(value);
+
+					return (
+						<li key={to} className="breadcrumbs-item">
+							{isLast ? (
+								<span className="breadcrumbs-current">{formattedLabel}</span>
+							) : (
+								<>
+									<Link className="breadcrumbs-link" to={to}>
+										{formattedLabel}
+									</Link>
+									<span className="breadcrumbs-separator"> → </span>
+								</>
+							)}
+						</li>
+					);
+				})}
 			</ul>
 		</nav>
 	);
 };
 
 export default BreadCrumbs;
-
-
-
-
-
-// import React from 'react';
-// import { Link, useLocation } from 'react-router-dom';
-//
-// const BreadCrumbs = () => {
-// 	const location = useLocation();
-// 	const pathnames = location.pathname.split('/').filter((x) => x);
-//
-// 	return (
-// 		<nav className="breadcrumbs">
-//       <span className="breadcrumbs-item">
-//         <Link to="/">Home</Link>
-//       </span>
-// 			{pathnames.map((value, index) => {
-// 				const to = `/${pathnames.slice(0, index + 1).join('/')}`;
-// 				const isLast = index === pathnames.length - 1;
-//
-// 				return (
-// 					<span key={to} className="breadcrumbs-item">
-//             {isLast ? (
-// 							<span>{decodeURIComponent(value)}</span>
-// 						) : (
-// 							<Link to={to}>{decodeURIComponent(value)}</Link>
-// 						)}
-// 						{!isLast && <span className="separator"> / </span>}
-//           </span>
-// 				);
-// 			})}
-// 		</nav>
-// 	);
-// };
-//
-// export default BreadCrumbs;
-
-
-

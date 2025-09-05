@@ -1,7 +1,10 @@
 import React from 'react';
 import Spices from '../../../assets/images/banners/banner_spices.png'
 import Cheeses from '../../../assets/images/banners/banner_cheese.png'
+import {useIntl} from "react-intl";
+
 const Advertising = () => {
+	const intl = useIntl();
 	return (
 		<section className="section_02">
 			<div className="section_02__banner container">
@@ -12,8 +15,8 @@ const Advertising = () => {
 					alt=""
 				/>
 					<div className="text padding_right_50">
-						<p className="padding_right_50">Traditional spices</p>
-						<p>20% discount</p>
+						<p className="padding_right_50">{intl.formatMessage({id: "traditionalSpices"})}</p>
+						<p>{intl.formatMessage({id: "discount"})}</p>
 					</div>
 				</div>
 				<div className="section_02__banner container inner_right"><img
@@ -23,8 +26,8 @@ const Advertising = () => {
 					alt=""
 				/>
 					<div className="text padding_left_50">
-						<p>Italian cheeses</p>
-						<p className="padding_left_50">at competitive prices</p>
+						<p>{intl.formatMessage({id: "italianCheeses"})}</p>
+						<p className="padding_left_50">{intl.formatMessage({id: "competitivePrices"})}</p>
 					</div>
 				</div>
 			</div>

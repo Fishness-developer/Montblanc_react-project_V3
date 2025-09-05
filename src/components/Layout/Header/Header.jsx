@@ -1,13 +1,13 @@
 import "../../../styles/header.scss";
 import Logo from "../../../assets/images/Logo.png";
 import {Link} from "react-router-dom";
-
-import React, {useContext, useState} from "react";
+import React, {useState} from "react";
 import PhoneIcon from "../../../icons/PhoneIcon/PhoneIcon.jsx";
 import ClockIcon from "../../../icons/ClockIcon/ClockIcon.jsx";
 import CartIcon from "../../../icons/CartIcon/CartIcon.jsx";
-import LanguageContext
-	from "../../../context/LanguageContext/LanguageContext.jsx";
+import {
+	useLanguage
+} from "../../../context/LanguageContext/LanguageContext.jsx";
 import {useCart} from "../../../context/CartContext/CartContext.jsx";
 import ModalCart from "../../ModalCart/ModalCart.jsx";
 import {
@@ -15,6 +15,9 @@ import {
 } from "../../../redux/slices/cartSlice/cartSelectors.js";
 import {useSelector} from "react-redux";
 import ModalOverlay from "../../ModalOverlay/ModalOverlay.jsx";
+import {useIntl} from "react-intl";
+import FlagRu from "../../../icons/FlagRu/FlagRu.jsx";
+import FlagEn from "../../../icons/FlagEn/FlagEn.jsx";
 
 const iconStyle = {
 	width: "20px",
@@ -29,10 +32,10 @@ const cartStyle = {
 };
 
 const Header = () => {
-	// const { cartItems, addToCart, deleteFromCart } = useCart();
+	const intl = useIntl();
 	const {deleteFromCart} = useCart();
 	const cartItems = useSelector(selectCartItems);
-	const {setLocale} = useContext(LanguageContext);
+	const {locale, setLocale} = useLanguage(); // Используем useLanguage для получения locale и setLocale
 	const [isModalOpen, setIsModalOpen] = useState(false);
 	const [isOverlayOpen, setIsOverlayOpen] = useState(false);
 
@@ -40,9 +43,10 @@ const Header = () => {
 		setIsModalOpen(!isModalOpen);
 	};
 
-const handleOpenOverlay = () => {
-	setIsOverlayOpen(!isOverlayOpen);
-}
+	const handleOpenOverlay = () => {
+		setIsOverlayOpen(!isOverlayOpen);
+	};
+
 	const handleCloseModal = () => {
 		setIsOverlayOpen(false);
 	};
@@ -51,7 +55,7 @@ const handleOpenOverlay = () => {
 		<header className="header">
 			<div className="header__inner">
 				<Link
-					to={`/`}
+					to="/"
 					className="header__logo logo"
 				>
 					<img
@@ -64,44 +68,48 @@ const handleOpenOverlay = () => {
 				</Link>
 				<div className="header__menu services">
 					<ul>
-						{/*<Link to={`/sign-up`} className="header__menu-item">*/}
-						{/*	Sign Up*/}
-						{/*</Link>*/}
-						{/*<Link to={`/sign-in`} className="header__menu-item">*/}
-						{/*	Sign In*/}
-						{/*</Link>*/}
-						<button className="header__button button" onClick={handleOpenOverlay}>Sign In</button>
-						{isOverlayOpen && (
-							<ModalOverlay isOverlayOpen={isOverlayOpen} onCloseOverlay={handleCloseModal}
-							></ModalOverlay>
-						)}
-						<li></li>
-						<li
-							className="header__menu-item"
-							onClick={() => setLocale("en")}
-						>
-							En
+						<li>
+							<button
+								className="header__button button"
+								onClick={handleOpenOverlay}
+							>
+								{intl.formatMessage({id: "sign_in"})}
+							</button>
+							{isOverlayOpen && (
+								<ModalOverlay
+									isOverlayOpen={isOverlayOpen}
+									onCloseOverlay={handleCloseModal}
+								/>
+							)}
 						</li>
-						<li
-							className="header__menu-item"
-							onClick={() => setLocale("ru")}
-						>
-							Ru
-						</li>
+
+							<li
+								className={`header__menu-item ${locale === "en" ? "active" : ""}`}
+								onClick={() => setLocale("en")}
+							>
+								 <FlagEn/>
+							</li>
+							<li
+								className={`header__menu-item ${locale === "ru" ? "active" : ""}`}
+								onClick={() => setLocale("ru")}
+							>
+								<FlagRu />
+							</li>
+
 					</ul>
 				</div>
 				<div className="header__contact phone">
 					<PhoneIcon {...iconStyle} />
 					<div>
 						<p className="tel">050 145-28-41</p>
-						<p className="time">support 0800 574 54 44</p>
+						<p className="time">{intl.formatMessage({id: "support"})} 0800 574 54 44</p>
 					</div>
 				</div>
 				<div className="header__contact time">
 					<ClockIcon {...iconStyle} />
 					<div>
-						<p className="tel">Store Opening</p>
-						<p className="time">daily from 8.00 to 21.00</p>
+						<p className="tel">{intl.formatMessage({id: "store_open"})}</p>
+						<p className="time">{intl.formatMessage({id: "daily_from"})} 8.00 to 21.00</p>
 					</div>
 				</div>
 				<div className="header__cart_container">
@@ -111,7 +119,7 @@ const handleOpenOverlay = () => {
 							onClick={handleOpenCartModal}
 						>
 							<CartIcon {...cartStyle} />
-							<p>cart</p>
+							<p>{intl.formatMessage({id: "cart"})}</p>
 							<p
 								className="amount-items-null"
 								data-amount
@@ -122,7 +130,6 @@ const handleOpenOverlay = () => {
 						{isModalOpen && (
 							<ModalCart
 								cartItems={cartItems}
-								// addToCart={addToCart}
 								deleteFromCart={deleteFromCart}
 							/>
 						)}
