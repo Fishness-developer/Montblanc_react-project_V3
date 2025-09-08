@@ -27,7 +27,15 @@ const messages = {
 		buyers: "For buyers",
 		information: "Information",
 		acceptPayment: "We accept payment",
-
+		amount: "Amount ",
+		price: "Price",
+		addToCart: "Add to cart",
+		yourOrder: "Your order",
+		order: "Order",
+		authentification: "authentification",
+		login: "Enter your login",
+		password: "Enter your password",
+		submit: "submit",
 	},
 	ru: {
 		allOffers: "все акции",
@@ -57,6 +65,15 @@ const messages = {
 		buyers: "Для покупателей",
 		information: "Информация",
 		acceptPayment: "Мы принимаем оплату",
+		amount: "Количество ",
+		price: "Цена",
+		addToCart: "В корзину",
+		yourOrder: "Ваш заказ",
+		order: "Заказать",
+		authentification: "авторизация",
+		login: "Введите ваш логин",
+		password: "Введите ваш пароль",
+		submit: "отправить",
 	},
 };
 export default  messages;

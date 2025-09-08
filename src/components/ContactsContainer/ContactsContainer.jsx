@@ -1,12 +1,13 @@
 import React from 'react';
 import { GoogleMap, useLoadScript, Marker } from '@react-google-maps/api';
+import { useIntl } from "react-intl";
 
 const ContactsContainer = () => {
-
+	const intl = useIntl();
 
 	return (
 		<section className="section_01">
-			<h2>Contact</h2>
+			<h2>{intl.formatMessage({ id: "contacts" })}</h2>
 			<div className="section_01__shopping-cart-container">
 				<div className="order_delivery">
 					<p className="order_delivery__text">

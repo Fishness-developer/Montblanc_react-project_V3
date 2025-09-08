@@ -3,12 +3,14 @@ import Close from '../../icons/Close/Close.jsx';
 import { useNavigate } from 'react-router-dom';
 import {useDispatch} from "react-redux";
 import {removeFromCart} from "../../redux/slices/cartSlice/cartSlice.js";
+import { useIntl } from "react-intl";
 const closeStyle = {
 	width: "20px",
 	height: "20px",
 	fill: "#ffffff",
 }
 const ModalCart = ({ cartItems}) => {
+	const intl = useIntl();
 	const dispatch = useDispatch();
 
 	const navigate = useNavigate();
@@ -18,7 +20,7 @@ const ModalCart = ({ cartItems}) => {
 	return (
 		<div className="header__drop-cart">
 			<div className="drop-cart-inner">
-				<p className="cart_header">Your order:</p>
+				<p className="cart_header">{intl.formatMessage({ id: "yourOrder" })}</p>
 				<p className="cart-amount">
 					<span className="cart-amount-total">{total.toFixed(2)}</span> ₪
 				</p>
@@ -58,7 +60,7 @@ const ModalCart = ({ cartItems}) => {
 				data-cart-total
 				onClick={() => navigate(`/order`)}
 			>
-				Order
+				{intl.formatMessage({ id: "order" })}
 			</button>
 		</div>
 	);

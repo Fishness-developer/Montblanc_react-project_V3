@@ -1,9 +1,11 @@
 import React from 'react';
+import { useIntl } from "react-intl";
 
 const DeliveryContainer = () => {
+	const intl = useIntl();
 	return (
 		<section className="section_01">
-			<h2>Delivery</h2>
+			<h2>{intl.formatMessage({ id: "delivery" })}</h2>
 			<div className="section_01__shopping-cart-container">
 				<div className="order_delivery">
 					<p className="order_delivery__text">

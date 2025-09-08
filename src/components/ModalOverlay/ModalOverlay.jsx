@@ -1,6 +1,6 @@
 import React from "react";
 import Close from "../../icons/Close/Close.jsx";
-
+import { useIntl } from "react-intl";
 const closeStyle = {
 	width: "20px",
 	height: "20px",
@@ -8,6 +8,7 @@ const closeStyle = {
 };
 
 const ModalOverlay = ({isOverlayOpen, onCloseOverlay}) => {
+	const intl = useIntl();
 	const handleClose = (e) => {
 		e.preventDefault();
 		onCloseOverlay();
@@ -18,7 +19,7 @@ const ModalOverlay = ({isOverlayOpen, onCloseOverlay}) => {
 			<div className="popup_autorization">
 				<div className="popup_autorization__container">
 					<div className="popup_autorization__header">
-						<h3>Authentication</h3>
+						<h3>{intl.formatMessage({ id: "authentification" })}</h3>
 						<div className="popup_autorization__close">
 							<button	className="cart-close" onClick={handleClose}>
 								<Close {...closeStyle} />
@@ -27,9 +28,9 @@ const ModalOverlay = ({isOverlayOpen, onCloseOverlay}) => {
 					</div>
 					<div className="popup_autorization__content">
 						<form	action="http://194.113.32.17:8080/login" method="POST">
-							<input type="text" placeholder="Enter your login" name="login" required=""	minLength="3"/>
-							<input type="password" placeholder="Enter your password" name="password" required="" minLength="3"/>
-							<button type="submit" className="button">Submit</button>
+							<input type="text" placeholder={intl.formatMessage({ id: "login" })} name="login" required=""	minLength="3"/>
+							<input type="password" placeholder={intl.formatMessage({ id: "password" })} name="password" required="" minLength="3"/>
+							<button type="submit" className="button">{intl.formatMessage({ id: "submit" })}</button>
 						</form>
 					</div>
 				</div>

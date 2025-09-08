@@ -98,10 +98,6 @@ const OrderContainer = () => {
 
 			<div className="section_01">
 				<div className="section_01__header_container">
-					{/*<a*/}
-					{/*	href="index.html"*/}
-					{/*	className="go-back"*/}
-					{/*>Go Back</a>*/}
 					<h2>Order products</h2>
 				</div>
 

@@ -82,8 +82,10 @@ import {
 	selectProductsError,
 } from "../../redux/slices/productsSlice/productsSelectors.js";
 import { fetchProductsSpecials } from "../../redux/slices/productsSlice/productsSlice.js";
+import { useIntl } from "react-intl";
 
 const SpecialOffersContainer = () => {
+	const intl = useIntl();
 	const dispatch = useDispatch();
 	const productSpecials = useSelector(selectSpecials);
 	const specialStatus = useSelector(selectSpecialsStatus);
@@ -104,7 +106,7 @@ const SpecialOffersContainer = () => {
 	return (
 		<div>
 			<section className="section_01">
-				<h2>All Offers</h2>
+				<h2>{intl.formatMessage({ id: "allOffers" })}</h2>
 				{specialStatus === "loading" ? (
 					<p>Loading...</p>
 				) : error ? (

@@ -7,8 +7,10 @@ import api from "../../api/api.js";
 import useGetCategories from "../CatalogContainer/hooks/useGetCategories.jsx";
 import { useDispatch } from "react-redux";
 import { addProductToCart } from "../../redux/slices/cartSlice/cartSlice.js";
+import { useIntl } from "react-intl";
 
 const DetailProductContainer = () => {
+	const intl = useIntl();
 	const dispatch = useDispatch();
 	const { category, productId, productName } = useParams();
 
@@ -87,11 +89,11 @@ const DetailProductContainer = () => {
 				</div>
 				<div className="container_bottom">
 					<div className="amount">
-						<h3>Amount:</h3>
+						<h3>{intl.formatMessage({ id: "amount" })}</h3>
 						<Amount handleDecrease={handleDecrease} handleIncrease={handleIncrease} counter={counter} />
 					</div>
 					<div className="price">
-						<h3>Price:</h3>
+						<h3>{intl.formatMessage({ id: "price" })}</h3>
 						<span className="extra">
 							{calculatePrice(product.price, product.discount)} ₪
 						</span>
@@ -101,7 +103,7 @@ const DetailProductContainer = () => {
 						data-cart
 						onClick={handleAddToCart}
 					>
-						add to cart
+						{intl.formatMessage({ id: "addToCart" })}
 					</button>
 				</div>
 			</div>

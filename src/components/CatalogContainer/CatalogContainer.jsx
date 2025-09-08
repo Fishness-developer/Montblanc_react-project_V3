@@ -143,6 +143,77 @@
 //
 // export default CatalogContainer;
 
+// import React, { useEffect, useMemo, useState } from "react";
+// import Product from "../Product/Product.jsx";
+// import LeftSidebar from "../LeftSidebar/LeftSidebar.jsx";
+// import useGetCategories from "../CatalogContainer/hooks/useGetCategories.jsx";
+// import { useDispatch, useSelector } from "react-redux";
+// import { fetchProductsByCategory } from "../../redux/slices/productsSlice/productsSlice.js";
+// import {
+// 	selectProductsByCategory,
+// 	selectIsLoadingByCategory,
+// 	selectErrorByCategory,
+// } from "../../redux/slices/productsSlice/productsSelectors.js";
+// import {useIntl} from "react-intl";
+//
+// const ProductsList = React.memo(({ products }) => (
+// 	<ul className="section_01__promotions">
+// 		{products.map((item) => (
+// 			<Product
+// 				key={item.id}
+// 				product={item}
+// 				showDiscount={!!item.discount}
+// 			/>
+// 		))}
+// 	</ul>
+// ));
+//
+// const CatalogContainer = () => {
+// 	const intl = useIntl();
+// 	const [categoryId, setCategoryId] = useState(1);
+// 	const dispatch = useDispatch();
+// 	const { categoriesList } = useGetCategories();
+//
+// 	const products = useSelector((state) => selectProductsByCategory(state, categoryId));
+// 	const isLoading = useSelector((state) => selectIsLoadingByCategory(state, categoryId));
+// 	const error = useSelector((state) => selectErrorByCategory(state, categoryId));
+//
+// 	const categoryName = useMemo(() => {
+// 		const selectedCategory = categoriesList.find((item) => item.id === categoryId);
+// 		return selectedCategory ? selectedCategory.name : "All products";
+// 	}, [categoryId, categoriesList]);
+//
+// 	useEffect(() => {
+// 		if (categoriesList.length > 0) {
+// 			dispatch(fetchProductsByCategory(categoryId));
+// 		}
+// 	}, [categoryId, dispatch, categoriesList]);
+//
+// 	return (
+// 		<div className="section_catalog__container">
+// 			<div className="left_sidebar">
+// 				<h3>{intl.formatMessage({ id: "catalog" })}</h3>
+// 				<LeftSidebar />
+// 			</div>
+// 			<div className="right_sidebar">
+// 				<h2>{categoryName}</h2>
+// 				{isLoading ? (
+// 					<p>Loading...</p>
+// 				) : error ? (
+// 					<p>Error: {error}. Tray again.</p>
+// 				) : products.length === 0 ? (
+// 					<p>Category is empty</p>
+// 				) : (
+// 					<ProductsList products={products} />
+// 				)}
+// 			</div>
+// 		</div>
+// 	);
+// };
+//
+// export default CatalogContainer;
+
+
 import React, { useEffect, useMemo, useState } from "react";
 import Product from "../Product/Product.jsx";
 import LeftSidebar from "../LeftSidebar/LeftSidebar.jsx";
@@ -154,6 +225,8 @@ import {
 	selectIsLoadingByCategory,
 	selectErrorByCategory,
 } from "../../redux/slices/productsSlice/productsSelectors.js";
+import { useIntl } from "react-intl";
+import { useLanguage } from "../../context/LanguageContext/LanguageContext.jsx";
 
 const ProductsList = React.memo(({ products }) => (
 	<ul className="section_01__promotions">
@@ -168,6 +241,8 @@ const ProductsList = React.memo(({ products }) => (
 ));
 
 const CatalogContainer = () => {
+	const intl = useIntl();
+	const { locale } = useLanguage(); // Получаем текущую локаль
 	const [categoryId, setCategoryId] = useState(1);
 	const dispatch = useDispatch();
 	const { categoriesList } = useGetCategories();
@@ -176,10 +251,17 @@ const CatalogContainer = () => {
 	const isLoading = useSelector((state) => selectIsLoadingByCategory(state, categoryId));
 	const error = useSelector((state) => selectErrorByCategory(state, categoryId));
 
+	// Функция для получения имени категории по локали (для UI)
+	const getNameByLocale = (item, locale) => {
+		if (locale === 'ru' && item.name_ru) return item.name_ru;
+		if (locale === 'he' && item.name_he) return item.name_he;
+		return item.name; // Запасной вариант для 'en' или если перевод отсутствует
+	};
+
 	const categoryName = useMemo(() => {
 		const selectedCategory = categoriesList.find((item) => item.id === categoryId);
-		return selectedCategory ? selectedCategory.name : "All products";
-	}, [categoryId, categoriesList]);
+		return selectedCategory ? getNameByLocale(selectedCategory, locale) : intl.formatMessage({ id: "allProducts" });
+	}, [categoryId, categoriesList, locale, intl]);
 
 	useEffect(() => {
 		if (categoriesList.length > 0) {
@@ -190,17 +272,17 @@ const CatalogContainer = () => {
 	return (
 		<div className="section_catalog__container">
 			<div className="left_sidebar">
-				<h3>Catalog</h3>
+				<h3>{intl.formatMessage({ id: "catalog" })}</h3>
 				<LeftSidebar />
 			</div>
 			<div className="right_sidebar">
 				<h2>{categoryName}</h2>
 				{isLoading ? (
-					<p>Loading...</p>
+					<p>{intl.formatMessage({ id: "loading" })}</p>
 				) : error ? (
-					<p>Error: {error}. Tray again.</p>
+					<p>{intl.formatMessage({ id: "error" })}: {error}. {intl.formatMessage({ id: "tryAgain" })}</p>
 				) : products.length === 0 ? (
-					<p>Category is empty</p>
+					<p>{intl.formatMessage({ id: "categoryEmpty" })}</p>
 				) : (
 					<ProductsList products={products} />
 				)}
