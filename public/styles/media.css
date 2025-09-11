@@ -6,6 +6,7 @@
   --color-dark:#2C2C2C;
   --color-beige:#FAE390;
   --color-black:#000000;
+  --color-red:#FF0000;
   --border-radius:50px;
   --border:2px solid var(--color-white);
   --font-family-roboto:"Roboto", sans-serif;
@@ -92,11 +93,20 @@
     display: flex;
     justify-content: center;
     flex-direction: column;
+    position: relative;
+    width: 100%;
+  }
+  .header__cart {
+    position: relative;
+    z-index: 100;
+    display: flex;
+    justify-content: center;
   }
   .header__drop-cart {
     left: 0 !important;
     right: 0 !important;
     min-width: auto !important;
+    margin-top: -15px !important;
   }
   .header__drop-cart-container {
     position: inherit !important;
@@ -114,6 +124,21 @@
     gap: 0 !important;
     flex-direction: column !important;
     max-width: 270px !important;
+  }
+  .header__menu.services ul {
+    display: flex;
+    flex-wrap: wrap; /* Позволяет элементам переноситься на новую строку */
+    justify-content: center !important; /* Горизонтальное центрирование элементов */
+    align-items: center !important; /* Вертикальное центрирование элементов */
+  }
+  .header__menu.services ul li:first-child {
+    flex: 0 0 100%;
+    text-align: center;
+    justify-content: center !important; /* Горизонтальное центрирование элементов */
+    align-items: center !important; /* Вертикальное центрирование элементов */
+  }
+  .header__menu.services ul li:not(:first-child) {
+    gap: 10px;
   }
 }
 

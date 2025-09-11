@@ -5,6 +5,7 @@
   --color-dark:#2C2C2C;
   --color-beige:#FAE390;
   --color-black:#000000;
+  --color-red:#FF0000;
   --border-radius:50px;
   --border:2px solid var(--color-white);
   --font-family-roboto:"Roboto", sans-serif;
@@ -14,26 +15,36 @@
 .section_01 {
   width: 100%;
   height: auto;
-  padding: 50px 0;
+  padding: 0 0 50px 0;
   margin: 0 auto;
   background: url("../assets/images/bg_fon1.jpg") repeat;
 }
 .section_01 h2 {
   color: var(--color-green);
-  margin: 0;
+  margin: 0 0 20px 0;
   text-align: center;
 }
 .section_01__promotions {
   width: 100%;
   height: auto;
   padding: 0;
-  margin: 30px auto;
+  margin: auto;
   background: none;
   display: flex;
   justify-content: center;
   align-items: stretch;
   gap: 30px;
   flex-wrap: wrap;
+}
+.section_01__promotions h2 {
+  margin-bottom: 0px;
+  line-height: 5.4rem !important;
+}
+.section_01__promotions p {
+  font-size: 14px;
+  font-weight: 400;
+  color: var(--color-dark);
+  line-height: 21px;
 }
 .section_01__promotions-item {
   width: 270px;
@@ -44,7 +55,7 @@
   justify-content: center;
   flex-direction: column;
   align-items: center;
-  row-gap: 10px;
+  row-gap: 20px;
   box-sizing: border-box;
 }
 .section_01__promotions-item a {
@@ -135,6 +146,12 @@
   padding: 0 30px;
   box-sizing: border-box;
 }
+.section_01__shopping-cart-container .status {
+  font-size: 14px;
+  font-weight: 300;
+  color: var(--color-black);
+  line-height: 21px;
+}
 .section_01__shopping-cart-container .cart-item-container {
   width: 100%;
   height: auto;
@@ -145,6 +162,10 @@
   box-sizing: border-box;
 }
 .section_01__shopping-cart-container .cart-item-container .cart-order-product {
+  font-size: 14px;
+  font-weight: 300;
+  color: var(--color-black);
+  line-height: 21px;
   display: grid;
   grid-template-columns: 1fr 3fr 1fr 1fr 1fr;
   grid-template-rows: 1fr;
@@ -166,12 +187,14 @@
 }
 .section_01__shopping-cart-container .cart-item-container .cart-close {
   cursor: pointer;
+  background: none;
+  border: 0;
 }
 .section_01__shopping-cart-container .total_order_price {
   width: 100%;
   height: auto;
   padding: 10px;
-  margin: 0 auto;
+  margin: 0 auto 50px auto;
   background: var(--color-green);
   max-width: 1170px;
   box-sizing: border-box;
@@ -184,14 +207,14 @@
 .section_01__shopping-cart-container .total_order_price h3 {
   font-size: 20px;
   font-weight: 500;
-  color: var(--color-white);
+  color: var(--color-white) !important;
   line-height: 30px;
 }
 .section_01__shopping-cart-container .order_delivery {
   width: 100%;
   height: auto;
   padding: 30px;
-  margin: 50px auto 10px auto;
+  margin: 10px auto 10px auto;
   background: var(--color-white);
   box-sizing: border-box;
   max-width: 1170px;
@@ -202,6 +225,15 @@
   /* When the radio button is checked, add a blue background */
   /* Create the indicator (the dot/circle - hidden when not checked) */
   /* Show the indicator (dot/circle) when checked */
+}
+.section_01__shopping-cart-container .order_delivery .map-container {
+  margin-top: 20px;
+}
+.section_01__shopping-cart-container .order_delivery__text {
+  font-size: 14px;
+  font-weight: 400;
+  color: var(--color-black) !important;
+  line-height: 21px;
 }
 .section_01__shopping-cart-container .order_delivery .radio_group {
   display: flex;
@@ -288,7 +320,7 @@
   justify-content: space-between;
   max-width: 1170px;
   align-items: center;
-  margin: 30px auto;
+  margin: 0 auto;
   padding: 0 30px;
 }
 .section_01 .order_info form {
@@ -308,11 +340,19 @@
   font-weight: 100;
   color: var(--color-dark);
   line-height: 18px;
+  background: var(--color-white);
 }
 .section_01 .order_info form textarea {
   padding: 5px 10px;
   border-color: rgba(0, 0, 0, 0.1);
   min-height: 80px;
+  background: var(--color-white);
+  font-size: 12px;
+  font-weight: 100;
+  color: var(--color-dark);
+  line-height: 18px;
+  text-transform: none;
+  font-weight: 200;
 }
 .section_01 .order_info form label {
   font-size: 16px;

@@ -5,6 +5,7 @@
   --color-dark:#2C2C2C;
   --color-beige:#FAE390;
   --color-black:#000000;
+  --color-red:#FF0000;
   --border-radius:50px;
   --border:2px solid var(--color-white);
   --font-family-roboto:"Roboto", sans-serif;
@@ -96,6 +97,10 @@ a:hover, a:not(:hover), a:hover::after, a:not(:hover)::after, .section_01__promo
   padding-left: 50px;
 }
 
+.padding-top_50 {
+  padding-top: 50px;
+}
+
 .flex {
   display: flex !important;
 }
@@ -106,6 +111,56 @@ a:hover, a:not(:hover), a:hover::after, a:not(:hover)::after, .section_01__promo
 
 .red {
   color: #ff0000;
+}
+
+.breadcrumbs {
+  padding: 20px 20px;
+  background: #f8f8f8 url(/src/assets/images/bg_fon1.jpg) repeat;
+  display: flex;
+  justify-content: center;
+}
+
+.breadcrumbs-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  align-items: center;
+  width: 1170px;
+  display: flex;
+  gap: 5px;
+}
+
+.breadcrumbs-list.rtl {
+  direction: rtl;
+}
+
+.breadcrumbs-item {
+  display: flex;
+  align-items: center;
+  font-size: 14px;
+  gap: 5px;
+}
+
+.breadcrumbs-link {
+  color: var(--color-dark);
+  text-decoration: none;
+}
+
+.breadcrumbs-link:hover {
+  color: var(--color-green);
+}
+
+.breadcrumbs-current {
+  font-size: 14px;
+  font-weight: 400;
+  color: var(--color-green);
+  line-height: 21px;
+}
+
+.breadcrumbs-separator {
+  margin: 0 8px;
+  color: #666;
 }
 
 /*# sourceMappingURL=global.css.map */

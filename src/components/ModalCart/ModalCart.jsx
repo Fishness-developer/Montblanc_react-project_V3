@@ -27,7 +27,7 @@ const ModalCart = ({ cartItems}) => {
 			</div>
 			<div className="cart-item-container" data-items>
 				{cartItems.length === 0 ? (
-					<p>Your cart is empty</p>
+					<p>{intl.formatMessage({ id: "cartEmpty" })}</p>
 				) : (
 					cartItems.map((product) => (
 						<div key={product.id} className="cart-item-container">

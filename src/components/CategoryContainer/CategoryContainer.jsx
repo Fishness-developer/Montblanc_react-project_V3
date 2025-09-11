@@ -6,6 +6,7 @@ import useGetCategories from "../CatalogContainer/hooks/useGetCategories.jsx";
 import LeftSidebar from "../LeftSidebar/LeftSidebar.jsx";
 import { useIntl } from "react-intl";
 import { useLanguage } from "../../context/LanguageContext/LanguageContext.jsx";
+import TopSidebar from "../TopSidebar/TopSidebar.jsx";
 
 const CategoryContainer = () => {
 	const intl = useIntl();
@@ -56,7 +57,7 @@ const CategoryContainer = () => {
 
 	return (
 		<div className="section_catalog__container">
-			<div className="left_sidebar">
+						<div className="left_sidebar">
 				<h3>{intl.formatMessage({ id: "catalog" })}</h3>
 				<LeftSidebar />
 			</div>

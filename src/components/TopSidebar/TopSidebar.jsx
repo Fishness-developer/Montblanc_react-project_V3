@@ -1,10 +1,10 @@
-// LeftSidebar.jsx
 import React from 'react';
 import { Link, useParams } from 'react-router-dom';
 import useGetCategories from "../CatalogContainer/hooks/useGetCategories.jsx";
 import { useLanguage } from "../../context/LanguageContext/LanguageContext.jsx";
 
-const LeftSidebar = () => {
+
+const TopSidebar = () => {
 	const { category } = useParams(); // Получаем slug категории из URL
 	const { categoriesList } = useGetCategories();
 	const { locale } = useLanguage(); // Получаем текущую локаль
@@ -21,7 +21,7 @@ const LeftSidebar = () => {
 	const generateSlug = (name) => name.toLowerCase().replace(/\s+/g, '-');
 
 	return (
-		<ul className={`catalog__list lang-${locale}`}>
+		<select className={`catalog__list lang-${locale}`}>
 			{categoriesList.map((item) => {
 				const categoryName = getNameByLocale(item, locale); // Локализованное имя для UI
 				const categorySlug = generateSlug(item.name); // Slug всегда на основе item.name (английский)
@@ -32,7 +32,7 @@ const LeftSidebar = () => {
 					: item.id === defaultCategoryId;
 
 				return (
-					<li
+					<option
 						key={item.id}
 						data-catalog-list
 						className={`${isSelected ? 'selected' : ''}`}
@@ -40,11 +40,13 @@ const LeftSidebar = () => {
 						<Link to={`/catalog/${categorySlug}`}>
 							<span className="catalog__item">{categoryName}</span>
 						</Link>
-					</li>
+					</option>
 				);
 			})}
-		</ul>
+		</select>
+
 	);
 };
 
-export default LeftSidebar;
+
+export default TopSidebar;

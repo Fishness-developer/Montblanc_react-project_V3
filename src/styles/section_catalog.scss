@@ -16,6 +16,9 @@
 		text-decoration: line-through;
 		margin: 10px 0;
 	}
+	.error{
+		@include font-face(11px, 400, var(--color-red));
+	}
 	h2{
 		margin-bottom: 20px;
 	}
@@ -142,5 +145,6 @@
 	[data-catalog-list].open:has(ul.catalog__sublist) .catalog__item::after {
 		content: "−";
 	}
+
 
 }

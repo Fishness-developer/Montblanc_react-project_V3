@@ -8,6 +8,7 @@ import Close from "../../icons/Close/Close.jsx";
 import {selectCartItems} from "../../redux/slices/cartSlice/cartSelectors.js";
 
 import api from "../../api/api.js";
+import { useIntl } from "react-intl";
 
 
 const closeStyle = {
@@ -18,6 +19,7 @@ const closeStyle = {
 
 
 const OrderContainer = () => {
+	const intl = useIntl();
 	const dispatch = useDispatch();
 	const cartItems = useSelector(selectCartItems);
 	const [deliveryTerms, setDeliveryTerms] = React.useState("Tomorrow from 9am to 12pm");
@@ -40,12 +42,12 @@ const OrderContainer = () => {
 
 	const validateForm = () => {
 		const errors = {};
-		if (!formData.userName.trim()) errors.userName = "Please, input name";
-		if (!formData.userEmail.trim()) errors.userEmail = "Please, input email";
-		else if (!/\S+@\S+\.\S+/.test(formData.userEmail)) errors.userEmail = "Invalid email format";
-		if (!formData.userAdress.trim()) errors.userAdress = "Please, input address";
-		if (!formData.userPhone.trim()) errors.userPhone = "Please, input phone";
-		else if (formData.userPhone.length < 9) errors.userPhone = "Too short phone number";
+		if (!formData.userName.trim()) errors.userName = intl.formatMessage({ id: "inputName"});
+		if (!formData.userEmail.trim()) errors.userEmail = intl.formatMessage({ id: "inputEmail"});
+		else if (!/\S+@\S+\.\S+/.test(formData.userEmail)) errors.userEmail = intl.formatMessage({ id: "invalidEmail"});
+		if (!formData.userAdress.trim()) errors.userAdress = intl.formatMessage({ id: "inputAddress"});
+		if (!formData.userPhone.trim()) errors.userPhone =intl.formatMessage({ id: "inputPhone"});
+		else if (formData.userPhone.length < 9) errors.userPhone = intl.formatMessage({ id: "shortPhone"});
 		setFormErrors(errors);
 		return Object.keys(errors).length === 0;
 	};
@@ -98,7 +100,7 @@ const OrderContainer = () => {
 
 			<div className="section_01">
 				<div className="section_01__header_container">
-					<h2>Order products</h2>
+					<h2>{intl.formatMessage({ id: "orderProducts" })}</h2>
 				</div>
 
 				<div className="section_01__shopping-cart-container">
@@ -135,11 +137,11 @@ const OrderContainer = () => {
 						)}
 					</div>
 					<div className="total_order_price">
-						<h3>Total price:</h3>
+						<h3>{intl.formatMessage({ id: "totalPrice" })}:</h3>
 						<p><span data-order-price>{total.toFixed(2)}</span> ₪</p>
 					</div>
 					<div className="order_delivery">
-						<h4>order time</h4>
+						<h4>{intl.formatMessage({ id: "orderTime" })}</h4>
 						<div className="radio_group">
 							<label className="container">
 								<input
@@ -152,7 +154,7 @@ const OrderContainer = () => {
 
 
 								/>
-								<span className="checkmark">Tomorrow from 9am to 12pm</span>
+								<span className="checkmark">{intl.formatMessage({ id: "tomorrowFrom" })} 9am to 12pm</span>
 							</label>
 							<label className="container">
 								<input
@@ -162,7 +164,7 @@ const OrderContainer = () => {
 									value="Tomorrow from 1pm to 4pm"
 									onChange={(e) =>  setDeliveryTerms(e.target.value)}
 								/>
-								<span className="checkmark">Tomorrow from 1pm to 4pm</span>
+								<span className="checkmark">{intl.formatMessage({ id: "tomorrowFrom" })} 1pm to 4pm</span>
 							</label>
 							<label className="container">
 								<input
@@ -173,7 +175,7 @@ const OrderContainer = () => {
 									onChange={(e) =>  setDeliveryTerms(e.target.value)}
 
 								/>
-								<span className="checkmark">Tomorrow from 5pm to 8pm</span>
+								<span className="checkmark">{intl.formatMessage({ id: "tomorrowFrom" })} 5pm to 8pm</span>
 							</label>
 						</div>
 
@@ -185,10 +187,10 @@ const OrderContainer = () => {
 							id="order_form"
 							autoComplete="on"
 						>
-							<h4>personal information</h4>
-							<label htmlFor="name">Name<span className="red">*</span></label>
+							<h4>{intl.formatMessage({ id: "personalInformation" })}</h4>
+							<label htmlFor="name">{intl.formatMessage({ id: "name" })}<span className="red">*</span></label>
 							<input
-								placeholder="your name"
+								placeholder={intl.formatMessage({ id: "yourName" })}
 								name="name"
 								id="name"
 								type="text"
@@ -197,7 +199,8 @@ const OrderContainer = () => {
 								onChange={(e) => setFormData({...formData, userName: e.target.value})}
 
 							/>
-							{/*{formErrors.userName && <p className="error">{formErrors.userName}</p>}*/}
+							{formErrors.userName && <p className="error">{formErrors.userName}</p>}
+
 							<label htmlFor="email">Email<span className="red">*</span></label>
 							<input
 								placeholder="email"
@@ -209,9 +212,10 @@ const OrderContainer = () => {
 								required
 							/>
 							{formErrors.userEmail && <p className="error">{formErrors.userEmail}</p>}
-							<label htmlFor="adress">Adress<span className="red">*</span></label>
+
+							<label htmlFor="adress">{intl.formatMessage({ id: "adress" })}<span className="red">*</span></label>
 							<input
-								placeholder="adress delivery"
+								placeholder={intl.formatMessage({ id: "adressDelivery" })}
 								name="adress"
 								id="adress"
 								type="text"
@@ -220,9 +224,10 @@ const OrderContainer = () => {
 								required
 							/>
 							{formErrors.userAdress && <p className="error">{formErrors.userAdress}</p>}
-							<label htmlFor="phone">Phone<span className="red">*</span></label>
+
+							<label htmlFor="phone">{intl.formatMessage({ id: "phone" })}<span className="red">*</span></label>
 							<input
-								placeholder="your phone"
+								placeholder={intl.formatMessage({ id: "yourPhone" })}
 								name="phone"
 								id="phone"
 								type="tel"
@@ -231,20 +236,21 @@ const OrderContainer = () => {
 								required
 							/>
 							{formErrors.userPhone && <p className="error">{formErrors.userPhone}</p>}
-							<label htmlFor="comment">Comment</label>
+
+							<label htmlFor="comment">{intl.formatMessage({ id: "comment" })}</label>
 							<textarea
 								name="comment"
 								id="comment"
-								placeholder="leave your comment"
+								placeholder={intl.formatMessage({ id: "leaveComment" })}
 								value={formData.userComment}
 								onChange={(e) => setFormData({...formData, userComment: e.target.value})}
 							></textarea>
 						</form>
 					</div>
 					<div className="order_payment">
-						<h4>payment</h4>
+						<h4>{intl.formatMessage({ id: "payment" })}</h4>
 						<div className="order_payment__container">
-							<label className="wrapper">By card to the courier
+							<label className="wrapper">{intl.formatMessage({ id: "cardToCourier" })}
 								<input
 									type="radio"
 									checked = {paymentMethods==="By card to the courier"}
@@ -254,7 +260,7 @@ const OrderContainer = () => {
 								/>
 								<span className="checkmark">&nbsp;</span>
 							</label>
-							<label className="wrapper">Cash to the courier
+							<label className="wrapper">{intl.formatMessage({ id: "cashToCourier" })}
 								<input
 									type="radio"
 									checked = {paymentMethods==="Cash to the courier"}
@@ -285,7 +291,11 @@ const OrderContainer = () => {
 						disabled={isSending || cartItems.length === 0}
 					>
 						{/*<h3>Order</h3>*/}
-						<h3>{isSending ? 'Sending...' : 'Order'}</h3>
+						<h3>
+							{isSending
+								? intl.formatMessage({ id: "sending", defaultMessage: "Sending..." })
+								: intl.formatMessage({ id: "order", defaultMessage: "Order" })}
+						</h3>
 					</button>
 
 					{successMessage && <p className="status">{successMessage}</p>}
