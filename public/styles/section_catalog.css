@@ -149,5 +149,21 @@
 .section_catalog [data-catalog-list].open:has(ul.catalog__sublist) .catalog__item::after {
   content: "−";
 }
+.section_catalog .section_catalog__container .top_sidebar {
+  display: none;
+}
+.section_catalog .select__list {
+  height: 30px;
+  width: auto;
+  font-size: 14px;
+  font-weight: 400;
+  color: var(--color-dark);
+  line-height: 21px;
+  background: none;
+  margin-top: 10px;
+}
+.section_catalog .top_sidebar h3 {
+  text-align: center !important;
+}
 
 /*# sourceMappingURL=section_catalog.css.map */

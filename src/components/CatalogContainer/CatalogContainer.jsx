@@ -227,6 +227,7 @@ import {
 } from "../../redux/slices/productsSlice/productsSelectors.js";
 import { useIntl } from "react-intl";
 import { useLanguage } from "../../context/LanguageContext/LanguageContext.jsx";
+import TopSidebar from "../TopSidebar/TopSidebar.jsx";
 
 const ProductsList = React.memo(({ products }) => (
 	<ul className="section_01__promotions">
@@ -271,6 +272,10 @@ const CatalogContainer = () => {
 
 	return (
 		<div className="section_catalog__container">
+			<div className="top_sidebar">
+				<h3>{intl.formatMessage({id: "catalog"})}</h3>
+				<TopSidebar />
+			</div>
 			<div className="left_sidebar">
 				<h3>{intl.formatMessage({ id: "catalog" })}</h3>
 				<LeftSidebar />

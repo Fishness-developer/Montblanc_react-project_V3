@@ -172,4 +172,10 @@
   .section_catalog__container .right_sidebar h2{
     text-align: center;
   }
+  .section_catalog__container .top_sidebar{
+    display: block!important;
+  }
+  .section_catalog__container .left_sidebar{
+    display: none!important;
+  }
 }

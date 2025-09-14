@@ -1,20 +1,20 @@
-import React, { useEffect, useState } from 'react';
-import { useParams } from 'react-router-dom';
+import React, {useEffect, useState} from 'react';
+import {useParams} from 'react-router-dom';
 import Product from "../Product/Product.jsx";
 import api from "../../api/api.js";
 import useGetCategories from "../CatalogContainer/hooks/useGetCategories.jsx";
 import LeftSidebar from "../LeftSidebar/LeftSidebar.jsx";
-import { useIntl } from "react-intl";
-import { useLanguage } from "../../context/LanguageContext/LanguageContext.jsx";
+import {useIntl} from "react-intl";
+import {useLanguage} from "../../context/LanguageContext/LanguageContext.jsx";
 import TopSidebar from "../TopSidebar/TopSidebar.jsx";
 
 const CategoryContainer = () => {
 	const intl = useIntl();
-	const { locale } = useLanguage(); // Получаем текущую локаль
-	const { category } = useParams();
+	const {locale} = useLanguage(); // Получаем текущую локаль
+	const {category} = useParams();
 	const [productsByCategories, setProductsByCategories] = useState([]);
 	const [categoryName, setCategoryName] = useState('');
-	const { categoriesList } = useGetCategories();
+	const {categoriesList} = useGetCategories();
 
 	// Функция для получения имени категории по локали (для UI)
 	const getNameByLocale = (item, locale) => {
@@ -32,7 +32,7 @@ const CategoryContainer = () => {
 				setCategoryName(getNameByLocale(selectedCategory, locale)); // Локализованное имя для заголовка
 				fetchProducts(selectedCategory.id);
 			} else {
-				setCategoryName(intl.formatMessage({ id: "categoryNotFound" })); // Перевод для 'Category Not Found'
+				setCategoryName(intl.formatMessage({id: "categoryNotFound"})); // Перевод для 'Category Not Found'
 				setProductsByCategories([]);
 			}
 		}
@@ -57,15 +57,19 @@ const CategoryContainer = () => {
 
 	return (
 		<div className="section_catalog__container">
-						<div className="left_sidebar">
-				<h3>{intl.formatMessage({ id: "catalog" })}</h3>
+			<div className="top_sidebar">
+				<h3>{intl.formatMessage({id: "catalog"})}</h3>
+				<TopSidebar />
+			</div>
+			<div className="left_sidebar">
+				<h3>{intl.formatMessage({id: "catalog"})}</h3>
 				<LeftSidebar />
 			</div>
 			<div className="right_sidebar">
 				<h2>{categoryName}</h2>
 				<ul className="section_01__promotions">
 					{productsByCategories.length === 0 ? (
-						<p>{intl.formatMessage({ id: "categoryEmpty" })}</p> // Перевод для 'Category is empty'
+						<p>{intl.formatMessage({id: "categoryEmpty"})}</p> // Перевод для 'Category is empty'
 					) : (
 						productsByCategories.map((item) => (
 							<Product
