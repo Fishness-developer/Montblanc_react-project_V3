@@ -1,5 +1,4 @@
 import React from 'react';
-import { SvgIcon } from '@mui/material';
 
 const PhoneIcon =  ({ width, height, fill }) => {
 	return (

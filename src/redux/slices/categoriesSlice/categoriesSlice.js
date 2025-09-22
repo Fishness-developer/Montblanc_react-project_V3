@@ -6,10 +6,8 @@ export const fetchCategories = createAsyncThunk(
 	async () => {
 		try {
 			const res = await api.category.getCategories();
-			console.log("res:", res)
 			return res;
 		}catch(e) {
-			console.log('Ошибка при получении категорий:', e);
 		}
 	}
 );

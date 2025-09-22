@@ -13,6 +13,7 @@ const Product = ({ product, showDiscount = false }) => {
 			: null,
 		formattedPrice: formatPrice(product.price),
 	}), [product]);
+// console.log("product", product);
 
 	return (
 		<li className="section_01__promotions-item">
@@ -25,12 +26,12 @@ const Product = ({ product, showDiscount = false }) => {
 					loading="lazy"
 				/>
 			</div>
-			<p className="price">
+			<div className="price">
 				{showDiscount && product.discount ? (
 					<>
-						<p>
-							<span className="extra">{discountedPrice}</span> ₪
-						</p>
+						<div>
+							<p className="extra">{discountedPrice}</p> ₪
+						</div>
 						<p className="offer">
 							{parseFloat(product.price).toFixed(2)}₪
 							<span className="percent">-{product.discount}%</span>
@@ -41,7 +42,7 @@ const Product = ({ product, showDiscount = false }) => {
 						<span className="extra">{parseFloat(product.price).toFixed(2)}</span> ₪
 					</p>
 				)}
-			</p>
+			</div>
 			<p className="item-description">{product.title}</p>
 			<button
 				type="button"

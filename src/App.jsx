@@ -42,7 +42,6 @@ const ScrollToTop = () => {
 const App = () => {
 	const products = useSelector(selectProducts);
 	const categories = useSelector(selectCategories);
-	console.log("categories:", categories);
 	const cartItems = useSelector(selectCartItems);
 	const dispatch = useDispatch();
 
@@ -59,7 +58,7 @@ const App = () => {
 					<Routes>
 						<Route path="/" element={<Layout />}>
 							<Route index element={<Home />} />
-							<Route path="/catalog" element={<Catalog />} />
+							{/*<Route path="/catalog" element={<Catalog />} />*/}
 							<Route path="/catalog/:category" element={<Category />} />
 							<Route
 								path="/catalog/:category/:productId/:productName"

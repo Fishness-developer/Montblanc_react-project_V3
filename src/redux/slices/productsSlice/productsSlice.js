@@ -203,13 +203,14 @@ const productsSlice = createSlice({
 	reducers: {},
 	extraReducers: (builder) => {
 		builder
-			.addCase(fetchProductsByCategory.pending, (state, action) => {
-				const catId = action.meta.arg;
-				state.byCategory[catId] = {
-					...state.byCategory[catId],
-					status: "loading",
-					error: null,
-				};
+			.addCase(fetchProductsByCategory.pending, (state, {payload}) => {
+				// console.log('catId:', catId);
+				// state.byCategory[catId] = {
+				// 	...state.byCategory[catId],
+				// 	status: "loading",
+				// 	error: null,
+				// };
+				// state.data = payload;
 				state.loading = true;
 			})
 			.addCase(fetchProductsByCategory.fulfilled, (state, action) => {

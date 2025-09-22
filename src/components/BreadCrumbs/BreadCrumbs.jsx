@@ -12,13 +12,17 @@ const BreadCrumbs = () => {
 			.map((word) => word.charAt(0).toUpperCase() + word.slice(1)) // Каждое слово с заглавной буквы
 			.join(' '); // Объединяем слова через пробел
 
-	// Фильтрация сегментов пути, исключая productId (предполагается, что это число)
+	// Фильтрация сегментов пути, исключая "catalog" и productId (числовой сегмент)
 	const filteredPathnames = pathnames.filter((segment, index) => {
-		// Если это сегмент productId (числовой, обычно третий в /catalog/:category/:productId/:productName)
-		if (pathnames[0] === 'catalog' && index === 2 && /^\d+$/.test(segment)) {
-			return false; // Пропускаем числовой productId
+		// Пропускаем сегмент "catalog"
+		if (segment === 'catalog') {
+			return false;
 		}
-		return true; // Сохраняем остальные сегменты
+		// Пропускаем числовой productId (обычно третий сегмент в /catalog/:category/:productId/:productName)
+		if (pathnames[0] === 'catalog' && index === 2 && /^\d+$/.test(segment)) {
+			return false;
+		}
+		return true;
 	});
 
 	return (
@@ -33,7 +37,7 @@ const BreadCrumbs = () => {
 				</li>
 
 				{filteredPathnames.map((value, index) => {
-					// Формируем путь, используя оригинальные pathnames до текущего индекса, чтобы сохранить productId в URL
+					// Формируем путь, используя оригинальные pathnames до текущего индекса, чтобы сохранить структуру URL
 					const originalIndex = pathnames.indexOf(value);
 					const to = `/${pathnames.slice(0, originalIndex + 1).join('/')}`;
 					const isLast = index === filteredPathnames.length - 1;

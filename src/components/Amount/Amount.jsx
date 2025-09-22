@@ -16,6 +16,7 @@ const Amount = ({handleDecrease,handleIncrease, counter}) => {
 				-
 			</button>
 			<input
+				id="id-amount"
 				className="amount-input"
 				type="number"
 				value={counter}

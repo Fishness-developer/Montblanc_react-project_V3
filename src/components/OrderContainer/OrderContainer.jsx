@@ -191,6 +191,9 @@ const OrderContainer = () => {
 							<label htmlFor="name">{intl.formatMessage({ id: "name" })}<span className="red">*</span></label>
 							<input
 								placeholder={intl.formatMessage({ id: "yourName" })}
+
+								autoComplete="on"
+
 								name="name"
 								id="name"
 								type="text"
@@ -204,6 +207,7 @@ const OrderContainer = () => {
 							<label htmlFor="email">Email<span className="red">*</span></label>
 							<input
 								placeholder="email"
+								autoComplete="on"
 								name="email"
 								id="email"
 								type="email"
@@ -228,6 +232,7 @@ const OrderContainer = () => {
 							<label htmlFor="phone">{intl.formatMessage({ id: "phone" })}<span className="red">*</span></label>
 							<input
 								placeholder={intl.formatMessage({ id: "yourPhone" })}
+								autoComplete="on"
 								name="phone"
 								id="phone"
 								type="tel"

@@ -86,6 +86,7 @@ const TopSidebar = () => {
 
 	return (
 		<select
+			id="category-select"
 			className={`select__list lang-${locale}`}
 			onChange={handleCategoryChange}
 			value={

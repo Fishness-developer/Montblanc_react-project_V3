@@ -1,5 +1,9 @@
 const messages = {
 	en: {
+		noSpecialOffers: "No special offers",
+		loading: "Loading...",
+		categoryEmpty: "Category is empty",
+		allProducts: "all products",
 		allOffers: "all offers",
 		deliveryAndPayment: "delivery and payment",
 		catalog: "catalog",
@@ -64,6 +68,10 @@ const messages = {
 
 	},
 	ru: {
+		noSpecialOffers: "Нет специальных предложений",
+		loading: "Загрузка...",
+		categoryEmpty: "Категория пуста",
+		allProducts: "все товары",
 		allOffers: "все акции",
 		deliveryAndPayment: "доставка и оплата",
 		catalog: "каталог",

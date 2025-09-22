@@ -214,86 +214,153 @@
 // export default CatalogContainer;
 
 
-import React, { useEffect, useMemo, useState } from "react";
-import Product from "../Product/Product.jsx";
-import LeftSidebar from "../LeftSidebar/LeftSidebar.jsx";
-import useGetCategories from "../CatalogContainer/hooks/useGetCategories.jsx";
-import { useDispatch, useSelector } from "react-redux";
-import { fetchProductsByCategory } from "../../redux/slices/productsSlice/productsSlice.js";
-import {
-	selectProductsByCategory,
-	selectIsLoadingByCategory,
-	selectErrorByCategory,
-} from "../../redux/slices/productsSlice/productsSelectors.js";
-import { useIntl } from "react-intl";
-import { useLanguage } from "../../context/LanguageContext/LanguageContext.jsx";
-import TopSidebar from "../TopSidebar/TopSidebar.jsx";
+// import React, { useEffect, useMemo, useState } from "react";
+// import Product from "../Product/Product.jsx";
+// import LeftSidebar from "../LeftSidebar/LeftSidebar.jsx";
+// import useGetCategories from "../CatalogContainer/hooks/useGetCategories.jsx";
+// import { useDispatch, useSelector } from "react-redux";
+// import { fetchProductsByCategory } from "../../redux/slices/productsSlice/productsSlice.js";
+// import {
+// 	selectProductsByCategory,
+// 	selectIsLoadingByCategory,
+// 	selectErrorByCategory,
+// } from "../../redux/slices/productsSlice/productsSelectors.js";
+// import { useIntl } from "react-intl";
+// import { useLanguage } from "../../context/LanguageContext/LanguageContext.jsx";
+// import TopSidebar from "../TopSidebar/TopSidebar.jsx";
+//
+// const ProductsList = React.memo(({ products }) => (
+// 	<ul className="section_01__promotions">
+// 		{products.map((item) => (
+// 			<Product
+// 				key={item.id}
+// 				product={item}
+// 				showDiscount={!!item.discount}
+// 			/>
+// 		))}
+// 	</ul>
+// ));
+//
+// const CatalogContainer = () => {
+// 	const intl = useIntl();
+// 	const { locale } = useLanguage(); // Получаем текущую локаль
+// 	const [categoryId, setCategoryId] = useState(1);
+// 	const dispatch = useDispatch();
+// 	const { categoriesList } = useGetCategories();
+//
+// 	const products = useSelector((state) => selectProductsByCategory(state, categoryId));
+// 	const isLoading = useSelector((state) => selectIsLoadingByCategory(state, categoryId));
+// 	const error = useSelector((state) => selectErrorByCategory(state, categoryId));
+//
+// 	// Функция для получения имени категории по локали (для UI)
+// 	const getNameByLocale = (item, locale) => {
+// 		if (locale === 'ru' && item.name_ru) return item.name_ru;
+// 		if (locale === 'he' && item.name_he) return item.name_he;
+// 		return item.name; // Запасной вариант для 'en' или если перевод отсутствует
+// 	};
+//
+// 	const categoryName = useMemo(() => {
+// 		const selectedCategory = categoriesList.find((item) => item.id === categoryId);
+// 		return selectedCategory ? getNameByLocale(selectedCategory, locale) : intl.formatMessage({ id: "allProducts" });
+// 	}, [categoryId, categoriesList, locale, intl]);
+//
+// 	useEffect(() => {
+// 		if (categoriesList.length > 0) {
+// 			dispatch(fetchProductsByCategory(categoryId));
+// 		}
+// 	}, [categoryId, dispatch, categoriesList]);
+//
+// 	return (
+// 		<div className="section_catalog__container">
+// 			<div className="top_sidebar">
+// 				<h3>{intl.formatMessage({id: "catalog"})}</h3>
+// 				<TopSidebar />
+// 			</div>
+// 			<div className="left_sidebar">
+// 				<h3>{intl.formatMessage({ id: "catalog" })}</h3>
+// 				<LeftSidebar />
+// 			</div>
+// 			<div className="right_sidebar">
+// 				<h2>{categoryName}</h2>
+// 				{isLoading ? (
+// 					<p>{intl.formatMessage({ id: "loading" })}</p>
+// 				) : error ? (
+// 					<p>{intl.formatMessage({ id: "error" })}: {error}. {intl.formatMessage({ id: "tryAgain" })}</p>
+// 				) : products.length === 0 ? (
+// 					<p>{intl.formatMessage({ id: "categoryEmpty" })}</p>
+// 				) : (
+// 					<ProductsList products={products} />
+// 				)}
+// 			</div>
+// 		</div>
+// 	);
+// };
+//
+// export default CatalogContainer;
 
-const ProductsList = React.memo(({ products }) => (
-	<ul className="section_01__promotions">
-		{products.map((item) => (
-			<Product
-				key={item.id}
-				product={item}
-				showDiscount={!!item.discount}
-			/>
-		))}
-	</ul>
-));
+import React from 'react';
+import { Link, useLocation } from 'react-router-dom';
 
-const CatalogContainer = () => {
-	const intl = useIntl();
-	const { locale } = useLanguage(); // Получаем текущую локаль
-	const [categoryId, setCategoryId] = useState(1);
-	const dispatch = useDispatch();
-	const { categoriesList } = useGetCategories();
+const BreadCrumbs = () => {
+	const location = useLocation();
+	const pathnames = location.pathname.split('/').filter((x) => x);
 
-	const products = useSelector((state) => selectProductsByCategory(state, categoryId));
-	const isLoading = useSelector((state) => selectIsLoadingByCategory(state, categoryId));
-	const error = useSelector((state) => selectErrorByCategory(state, categoryId));
+	// Функция преобразования названий
+	const formatLabel = (label) =>
+		label
+			.split('-') // Разделяем по дефисам
+			.map((word) => word.charAt(0).toUpperCase() + word.slice(1)) // Каждое слово с заглавной буквы
+			.join(' '); // Объединяем слова через пробел
 
-	// Функция для получения имени категории по локали (для UI)
-	const getNameByLocale = (item, locale) => {
-		if (locale === 'ru' && item.name_ru) return item.name_ru;
-		if (locale === 'he' && item.name_he) return item.name_he;
-		return item.name; // Запасной вариант для 'en' или если перевод отсутствует
-	};
-
-	const categoryName = useMemo(() => {
-		const selectedCategory = categoriesList.find((item) => item.id === categoryId);
-		return selectedCategory ? getNameByLocale(selectedCategory, locale) : intl.formatMessage({ id: "allProducts" });
-	}, [categoryId, categoriesList, locale, intl]);
-
-	useEffect(() => {
-		if (categoriesList.length > 0) {
-			dispatch(fetchProductsByCategory(categoryId));
+	// Фильтрация сегментов пути, исключая "catalog" и productId (числовой сегмент)
+	const filteredPathnames = pathnames.filter((segment, index) => {
+		// Пропускаем сегмент "catalog"
+		if (segment === 'catalog') {
+			return false;
 		}
-	}, [categoryId, dispatch, categoriesList]);
+		// Пропускаем числовой productId (обычно третий сегмент в /catalog/:category/:productId/:productName)
+		if (pathnames[0] === 'catalog' && index === 2 && /^\d+$/.test(segment)) {
+			return false;
+		}
+		return true;
+	});
 
 	return (
-		<div className="section_catalog__container">
-			<div className="top_sidebar">
-				<h3>{intl.formatMessage({id: "catalog"})}</h3>
-				<TopSidebar />
-			</div>
-			<div className="left_sidebar">
-				<h3>{intl.formatMessage({ id: "catalog" })}</h3>
-				<LeftSidebar />
-			</div>
-			<div className="right_sidebar">
-				<h2>{categoryName}</h2>
-				{isLoading ? (
-					<p>{intl.formatMessage({ id: "loading" })}</p>
-				) : error ? (
-					<p>{intl.formatMessage({ id: "error" })}: {error}. {intl.formatMessage({ id: "tryAgain" })}</p>
-				) : products.length === 0 ? (
-					<p>{intl.formatMessage({ id: "categoryEmpty" })}</p>
-				) : (
-					<ProductsList products={products} />
-				)}
-			</div>
-		</div>
+		<nav className="breadcrumbs">
+			<ul className="breadcrumbs-list">
+				{/* Всегда отображаем "Home" с разделителем (если маршрут не пустой) */}
+				<li className="breadcrumbs-item">
+					<Link className="breadcrumbs-link" to="/">
+						Home
+					</Link>
+					{filteredPathnames.length > 0 && <span className="breadcrumbs-separator"> → </span>}
+				</li>
+
+				{filteredPathnames.map((value, index) => {
+					// Формируем путь, используя оригинальные pathnames до текущего индекса, чтобы сохранить структуру URL
+					const originalIndex = pathnames.indexOf(value);
+					const to = `/${pathnames.slice(0, originalIndex + 1).join('/')}`;
+					const isLast = index === filteredPathnames.length - 1;
+					const formattedLabel = formatLabel(value);
+
+					return (
+						<li key={to} className="breadcrumbs-item">
+							{isLast ? (
+								<span className="breadcrumbs-current">{formattedLabel}</span>
+							) : (
+								<>
+									<Link className="breadcrumbs-link" to={to}>
+										{formattedLabel}
+									</Link>
+									<span className="breadcrumbs-separator"> → </span>
+								</>
+							)}
+						</li>
+					);
+				})}
+			</ul>
+		</nav>
 	);
 };
 
-export default CatalogContainer;
+export default BreadCrumbs;

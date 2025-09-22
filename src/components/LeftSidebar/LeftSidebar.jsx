@@ -3,10 +3,15 @@ import React from 'react';
 import { Link, useParams } from 'react-router-dom';
 import useGetCategories from "../CatalogContainer/hooks/useGetCategories.jsx";
 import { useLanguage } from "../../context/LanguageContext/LanguageContext.jsx";
+import {
+	selectCategories
+} from "../../redux/slices/categoriesSlice/categoriesSelectors.js";
+import { useSelector } from "react-redux";
 
 const LeftSidebar = () => {
 	const { category } = useParams(); // Получаем slug категории из URL
-	const { categoriesList } = useGetCategories();
+	// const { categoriesList } = useGetCategories();
+	const categoriesList = useSelector(selectCategories);
 	const { locale } = useLanguage(); // Получаем текущую локаль
 	const defaultCategoryId = 1;
 

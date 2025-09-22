@@ -21,10 +21,6 @@ const CartProvider = ({ children }) => {
 		);
 	}
 
-	// Выводим содержимое корзины в консоль при каждом её изменении
-	useEffect(() => {
-		console.log('Текущая корзина:', cartItems);
-	}, [cartItems]);
 
 	return (
 		<CartContext.Provider value={{addToCart, cartItems,  deleteFromCart }}>
